@@ -1040,6 +1040,4 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
-@media (prefers-reduced-motion: reduce) {
-  .pixel-fireworks { display: none; }
-}
+/* keep canvas visible even with reduced motion (JS slows spawn) */

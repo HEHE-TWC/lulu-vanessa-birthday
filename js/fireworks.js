@@ -7,12 +7,12 @@
 
   const canvas = document.getElementById("pixel-fireworks");
   if (!canvas || !canvas.getContext) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const ctx = canvas.getContext("2d");
   ctx.imageSmoothingEnabled = false;
-  const COLORS = ["#F7A8B8", "#F5C6A8", "#F5D76E", "#A8E6CF", "#FFD6E0", "#FFE4B5", "#B8E0D2"];
-  const SCALE = 4; /* internal pixels → crisp 8-bit look */
+  const COLORS = ["#F7A8B8", "#F5C6A8", "#F5D76E", "#A8E6CF", "#FFD6E0", "#FFE4B5", "#B8E0D2", "#FF6B9A", "#FFD93D"];
+  const SCALE = 3; /* larger pixels = easier to see on phone */
 
   let w = 0;
   let h = 0;
@@ -52,7 +52,7 @@
 
   function explode(x, y, color) {
     const boost = isBirthdayBoost();
-    const n = boost ? 18 + ((Math.random() * 10) | 0) : 12 + ((Math.random() * 8) | 0);
+    const n = boost ? 28 + ((Math.random() * 12) | 0) : 20 + ((Math.random() * 10) | 0);
     for (let i = 0; i < n; i++) {
       const ang = (Math.PI * 2 * i) / n + Math.random() * 0.4;
       const spd = 0.6 + Math.random() * (boost ? 1.6 : 1.1);
@@ -64,7 +64,7 @@
         life: 28 + ((Math.random() * 22) | 0),
         max: 50,
         color: Math.random() > 0.35 ? color : COLORS[(Math.random() * COLORS.length) | 0],
-        size: Math.random() > 0.7 ? 2 : 1,
+        size: Math.random() > 0.5 ? 3 : 2,
       });
     }
     /* tiny secondary sparkles */
@@ -85,8 +85,9 @@
   function tick(ts) {
     if (!running) return;
     const boost = isBirthdayBoost();
-    const interval = boost ? 700 : 1400;
-    if (ts - lastSpawn > interval && rockets.length < (boost ? 4 : 2)) {
+    const interval = reduceMotion ? 2200 : (boost ? 450 : 700);
+    const maxRockets = reduceMotion ? 1 : (boost ? 5 : 3);
+    if (ts - lastSpawn > interval && rockets.length < maxRockets) {
       spawnRocket();
       lastSpawn = ts;
     }
@@ -136,13 +137,12 @@
     /* seed rockets/bursts so mock/screenshot shows fireworks immediately */
     spawnRocket();
     spawnRocket();
-    if (mock) {
-      /* instant mid-sky bursts for screenshot */
-      explode(Math.floor(w * 0.25), Math.floor(h * 0.22), COLORS[0]);
-      explode(Math.floor(w * 0.72), Math.floor(h * 0.18), COLORS[2]);
-      explode(Math.floor(w * 0.5), Math.floor(h * 0.28), COLORS[3]);
-      spawnRocket();
-    }
+    spawnRocket();
+    /* always seed visible bursts so user sees fireworks immediately */
+    explode(Math.floor(w * 0.22), Math.floor(h * 0.2), COLORS[0]);
+    explode(Math.floor(w * 0.75), Math.floor(h * 0.16), COLORS[2]);
+    explode(Math.floor(w * 0.48), Math.floor(h * 0.26), COLORS[7]);
+    if (mock) spawnRocket();
     lastSpawn = performance.now();
     raf = requestAnimationFrame(tick);
   }

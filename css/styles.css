@@ -21,9 +21,9 @@
   --nav-h: 56px;
   /* Pop-up size → full-body sitting figure (never crop head/feet) */
   --flyer-size: clamp(200px, 36vw, 300px);
-  /* Width + max height leave room for card; object-fit:contain keeps full silhouette */
-  --flyer-landed-size: clamp(230px, 52vmin, 360px);
-  --flyer-landed-h: min(58vh, 480px);
+  /* Width drives height (PNG 433×655); object-fit:contain keeps full silhouette */
+  --flyer-landed-size: clamp(240px, 48vmin, 380px);
+  --flyer-landed-h: min(60vh, 520px);
   /* ~30fps-friendly: 1.4s bounce pop ≈ 42 frames @ 30fps */
   --flight-duration: 0.75s; /* shorter bounce */
   --cursor-default: url("../assets/cursor-default.png") 0 0, auto;
@@ -308,11 +308,31 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   /* Never crop: show ears → feet */
   overflow: visible;
 }
-/* On short phones keep full silhouette readable */
-@media (max-height: 700px) {
+/* Mobile / small tablet: LuLu much larger in hero (still full-body, no crop).
+   Width ~78–82vw, capped so height stays ~55–65vh. Card % stays on PNG so grip holds. */
+@media (max-width: 768px) {
   :root {
-    --flyer-landed-size: clamp(180px, 42vmin, 280px);
-    --flyer-landed-h: min(50vh, 360px);
+    --flyer-landed-size: clamp(280px, min(80vw, 44vh), 440px);
+    --flyer-landed-h: min(68vh, 580px);
+  }
+  .flyer-wrap.idle,
+  .flyer-wrap.landed,
+  .flyer-wrap {
+    bottom: clamp(8px, 1.5vh, 20px);
+  }
+}
+@media (max-width: 480px) {
+  :root {
+    /* Phones: fill most of hero width; height capped via 42vh≈width for 433:655 */
+    --flyer-landed-size: clamp(270px, min(84vw, 42vh), 400px);
+    --flyer-landed-h: min(66vh, 540px);
+  }
+}
+/* Very short viewports only: shrink just enough to keep hat→feet on screen */
+@media (max-height: 560px) {
+  :root {
+    --flyer-landed-size: clamp(200px, min(70vw, 38vh), 320px);
+    --flyer-landed-h: min(55vh, 360px);
   }
 }
 

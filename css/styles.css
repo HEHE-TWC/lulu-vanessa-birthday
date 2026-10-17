@@ -328,7 +328,7 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   }
   /* Mobile: same reference proportions */
   .birthday-sign {
-    top: calc(36% + 2cm);
+    top: calc(36% + 1cm);
     width: 54%;
     height: 48%;
     min-height: 46%;
@@ -338,7 +338,7 @@ button, .btn-replay, .cta-hint, .birthday-sign {
     border-radius: 14px;
   }
   .flyer-wrap.flying .birthday-sign {
-    top: calc(36% + 2cm);
+    top: calc(36% + 1cm);
     width: 54%;
     height: 48%;
   }
@@ -371,7 +371,7 @@ button, .btn-replay, .cta-hint, .birthday-sign {
     --flyer-landed-h: min(52vh, 440px);
   }
   .birthday-sign {
-    top: calc(36% + 2cm);
+    top: calc(36% + 1cm);
     width: 56%;
     height: 48%;
     min-height: 46%;
@@ -473,7 +473,7 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   position: absolute;
   left: 50%;
   /* Proportions locked to user reference: tall card, ~mid torso, hands on sides */
-  top: calc(36% + 2cm);
+  top: calc(36% + 1cm);
   bottom: auto;
   display: flex;
   flex-direction: column;
@@ -519,7 +519,7 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 .flyer-wrap.flying .birthday-sign {
   position: absolute;
   left: 50%;
-  top: calc(36% + 2cm);
+  top: calc(36% + 1cm);
   width: 52%;
   height: 48%;
   margin: 0;
@@ -877,7 +877,7 @@ button, .btn-replay, .cta-hint, .birthday-sign {
     animation: none !important;
     position: absolute !important;
     left: 50% !important;
-    top: calc(36% + 2cm) !important;
+    top: calc(36% + 1cm) !important;
     width: 40% !important;
     height: 36% !important;
     margin: 0 !important;

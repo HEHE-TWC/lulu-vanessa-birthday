@@ -1,5 +1,6 @@
 /**
  * Pixel fireworks — homepage only, birthday day (or ?fireworks=1 preview).
+ * Larger, slower bursts for visibility.
  */
 (function () {
   "use strict";
@@ -33,7 +34,8 @@
     "#FF6B9A", "#F7A8B8", "#FFD93D", "#F5D76E",
     "#A8E6CF", "#FFD6E0", "#FFE4B5", "#FF9F43", "#B8E0D2", "#FFF"
   ];
-  const SCALE = 2; /* bigger on-screen pixels */
+  /* Higher SCALE = chunkier on-screen pixels (looks bigger) */
+  const SCALE = 4;
 
   let w = 0;
   let h = 0;
@@ -47,8 +49,8 @@
     const parent = canvas.parentElement;
     if (!parent) return;
     const rect = parent.getBoundingClientRect();
-    w = Math.max(100, Math.floor(rect.width / SCALE));
-    h = Math.max(80, Math.floor(rect.height / SCALE));
+    w = Math.max(80, Math.floor(rect.width / SCALE));
+    h = Math.max(60, Math.floor(rect.height / SCALE));
     canvas.width = w;
     canvas.height = h;
     canvas.style.width = "100%";
@@ -59,36 +61,36 @@
     rockets.push({
       x: Math.floor(w * (0.08 + Math.random() * 0.84)),
       y: h - 2,
-      vy: -(2.2 + Math.random() * 1.8),
+      vy: -(0.7 + Math.random() * 0.55),
       color: COLORS[(Math.random() * COLORS.length) | 0],
-      targetY: Math.floor(h * (0.08 + Math.random() * 0.38)),
+      targetY: Math.floor(h * (0.1 + Math.random() * 0.35)),
     });
   }
 
   function explode(x, y, color) {
-    const n = 36 + ((Math.random() * 20) | 0);
+    const n = 42 + ((Math.random() * 18) | 0);
     for (let i = 0; i < n; i++) {
       const ang = (Math.PI * 2 * i) / n + Math.random() * 0.35;
-      const spd = 1.1 + Math.random() * 2.4;
+      const spd = 0.35 + Math.random() * 0.75;
       particles.push({
         x,
         y,
         vx: Math.cos(ang) * spd,
         vy: Math.sin(ang) * spd,
-        life: 40 + ((Math.random() * 30) | 0),
-        max: 70,
+        life: 100 + ((Math.random() * 50) | 0),
+        max: 150,
         color: Math.random() > 0.3 ? color : COLORS[(Math.random() * COLORS.length) | 0],
-        size: Math.random() > 0.4 ? 4 : 3,
+        size: Math.random() > 0.35 ? 3 : 2,
       });
     }
-    for (let j = 0; j < 10; j++) {
+    for (let j = 0; j < 12; j++) {
       particles.push({
-        x: x + (((Math.random() * 7) | 0) - 3),
-        y: y + (((Math.random() * 7) | 0) - 3),
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: (Math.random() - 0.5) * 0.8,
-        life: 18 + ((Math.random() * 14) | 0),
-        max: 32,
+        x: x + (((Math.random() * 5) | 0) - 2),
+        y: y + (((Math.random() * 5) | 0) - 2),
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        life: 50 + ((Math.random() * 30) | 0),
+        max: 80,
         color: "#FFF9C4",
         size: 2,
       });
@@ -97,9 +99,9 @@
 
   function tick(ts) {
     if (!running) return;
-    if (ts - lastSpawn > 280 && rockets.length < 6) {
+    if (ts - lastSpawn > 720 && rockets.length < 5) {
       spawnRocket();
-      if (Math.random() > 0.4) spawnRocket();
+      if (Math.random() > 0.55) spawnRocket();
       lastSpawn = ts;
     }
 
@@ -122,20 +124,20 @@
       const p = particles[i];
       p.x += p.vx;
       p.y += p.vy;
-      p.vy += 0.04;
-      p.vx *= 0.988;
+      p.vy += 0.012;
+      p.vx *= 0.994;
       p.life--;
       if (p.life <= 0) {
         particles.splice(i, 1);
         continue;
       }
-      ctx.globalAlpha = Math.max(0.2, p.life / p.max);
+      ctx.globalAlpha = Math.max(0.25, p.life / p.max);
       ctx.fillStyle = p.color;
       ctx.fillRect(p.x | 0, p.y | 0, p.size, p.size);
       ctx.globalAlpha = 1;
     }
 
-    if (particles.length > 420) particles.splice(0, particles.length - 420);
+    if (particles.length > 480) particles.splice(0, particles.length - 480);
     raf = requestAnimationFrame(tick);
   }
 
@@ -150,7 +152,6 @@
     explode(Math.floor(w * 0.78), Math.floor(h * 0.14), COLORS[2]);
     explode(Math.floor(w * 0.5), Math.floor(h * 0.22), COLORS[1]);
     explode(Math.floor(w * 0.35), Math.floor(h * 0.3), COLORS[3]);
-    spawnRocket();
     spawnRocket();
     spawnRocket();
     lastSpawn = performance.now();

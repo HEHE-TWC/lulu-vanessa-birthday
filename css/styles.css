@@ -326,41 +326,41 @@ button, .btn-replay, .cta-hint, .birthday-sign {
     padding-bottom: 0.5rem;
     z-index: 12;
   }
-  /* Mobile: larger countdown card so label + units + 點擊進入 all fit */
+  /* Mobile: card a bit wider for text, still within stub-hand grip */
   .birthday-sign {
-    top: 50%;
-    width: 52%;
-    height: 32%;
-    min-height: 32%;
-    max-height: 36%;
-    padding: 8px 6px 6px;
+    top: 41%;
+    width: 44%;
+    height: 36%;
+    min-height: 34%;
+    max-height: 40%;
+    padding: 8px 5px 6px;
     border-width: 3px !important;
     border-radius: 12px;
   }
   .flyer-wrap.flying .birthday-sign {
-    top: 50%;
-    width: 52%;
-    height: 30%;
+    top: 41%;
+    width: 44%;
+    height: 36%;
   }
   .sign-label {
-    font-size: clamp(0.72rem, 3.2vw, 0.95rem);
+    font-size: clamp(0.68rem, 2.8vw, 0.88rem);
     margin-bottom: 4px;
   }
   .birthday-sign .sign-unit .num {
-    font-size: clamp(1.05rem, 5.2vw, 1.55rem);
+    font-size: clamp(0.78rem, 3.2vw, 1.05rem);
   }
   .birthday-sign .sign-unit .lbl {
-    font-size: clamp(0.58rem, 2.4vw, 0.75rem);
+    font-size: clamp(0.5rem, 2vw, 0.65rem);
   }
   .birthday-sign .sign-click-hint {
-    font-size: clamp(0.85rem, 3.6vw, 1.05rem);
-    margin-top: 6px;
+    font-size: clamp(0.72rem, 3vw, 0.92rem);
+    margin-top: 5px;
   }
   .sign-countdown {
-    gap: 4px;
+    gap: 3px;
   }
   .sign-unit {
-    padding: 4px 2px;
+    padding: 3px 2px;
     border-radius: 6px;
   }
 }
@@ -371,21 +371,21 @@ button, .btn-replay, .cta-hint, .birthday-sign {
     --flyer-landed-h: min(52vh, 440px);
   }
   .birthday-sign {
-    top: 49%;
-    width: 54%;
-    height: 34%;
-    min-height: 34%;
-    max-height: 38%;
-    padding: 8px 6px 7px;
+    top: 41%;
+    width: 46%;
+    height: 37%;
+    min-height: 35%;
+    max-height: 42%;
+    padding: 7px 4px 6px;
   }
   .sign-label {
-    font-size: clamp(0.78rem, 3.6vw, 1rem);
+    font-size: clamp(0.7rem, 3vw, 0.9rem);
   }
   .birthday-sign .sign-unit .num {
-    font-size: clamp(1.1rem, 5.8vw, 1.6rem);
+    font-size: clamp(0.8rem, 3.4vw, 1.05rem);
   }
   .birthday-sign .sign-click-hint {
-    font-size: clamp(0.9rem, 4vw, 1.1rem);
+    font-size: clamp(0.75rem, 3.2vw, 0.95rem);
   }
 }
 /* Very short viewports only: shrink just enough to keep hat→feet on screen */
@@ -472,19 +472,19 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 .birthday-sign {
   position: absolute;
   left: 50%;
-  /* Below snout/blush; between stubby hands gripping L/R edges */
-  top: 52%;
+  /* Align to baked yellow card in PNG (top~40%, W~40%, H~38%); hands grip L/R notches */
+  top: 41%;
   bottom: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 40%;
-  height: 27%;
-  min-height: 27%;
-  max-height: 30%;
+  height: 36%;
+  min-height: 34%;
+  max-height: 38%;
   margin: 0;
-  padding: 6px 5px 5px;
+  padding: 8px 6px 6px;
   /* Solid opaque pale yellow — never see-through */
   background: #FFF6C8 !important;
   background-color: #FFF6C8 !important;
@@ -523,11 +523,12 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 .flyer-wrap.flying .birthday-sign {
   position: absolute;
   left: 50%;
-  top: 52%;
-  width: 42%;
-  height: 25%;
+  top: 41%;
+  width: 40%;
+  height: 36%;
   margin: 0;
   transform: translateX(-50%) scale(0.85);
+  /* Hidden during flight — baked yellow card in PNG already shows solid color */
   opacity: 0;
   pointer-events: none;
 }
@@ -566,17 +567,30 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   background-color: #FFFBE8;
   border: 1px solid #C4A574;
   border-radius: 5px;
-  padding: 2px 1px;
+  padding: 3px 2px;
   min-width: 0;
   opacity: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 .sign-unit .num {
   display: block;
-  font-size: clamp(0.72rem, 2.6vw, 0.95rem);
+  width: 100%;
+  text-align: center;
+  font-size: clamp(0.68rem, 2.2vw, 0.92rem);
   font-weight: 800;
   color: var(--pink-deep);
   font-variant-numeric: tabular-nums;
-  line-height: 1.1;
+  line-height: 1.15;
+  letter-spacing: 0;
+  padding: 0 1px;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: visible;
 }
 .sign-unit .lbl {
   display: block;
@@ -866,9 +880,9 @@ button, .btn-replay, .cta-hint, .birthday-sign {
     animation: none !important;
     position: absolute !important;
     left: 50% !important;
-    top: 52% !important;
-    width: 42% !important;
-    height: 27% !important;
+    top: 41% !important;
+    width: 40% !important;
+    height: 36% !important;
     margin: 0 !important;
   }
   .cloud, .sun { animation: none; }
@@ -960,10 +974,15 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   width: 100%;
 }
 .birthday-sign .sign-unit .num {
-  font-size: clamp(0.95rem, 4.8vw, 1.45rem);
+  /* Keep digits inside white boxes — no left-edge clip */
+  font-size: clamp(0.72rem, 2.4vw, 1.05rem);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.15;
   color: var(--pink-deep);
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 2px;
 }
 .birthday-sign .sign-unit .lbl {
   font-size: clamp(0.55rem, 2vw, 0.7rem);

@@ -1,5 +1,6 @@
 cropped=433x655
-HTML card desktop: top=52% height=27% width=40% (hands grip at ~27%/73%)
-HTML card mobile≤768: top=50% height=32% width=52%; ≤480: top=49% height=34% width=54%
-PNG: Pillow-composited stubby arms (deeper pink #F7AFA5 + dark outline) from torso sides → rounded hands; no baked card
-Desktop: --flyer-landed-size max 300px @≥769px; hero-copy z-index 12; hat clears subtitle (~247px gap @1280)
+PNG: solid #FFF6C8 card baked in (from ac29da1 stub-hand style); visible during flight before countdown text
+Hands: stubby coral-pink stubs in L/R notches; thin dark curved arm lines only — NO tube arms
+HTML card desktop: top=41% height=36% width=40% (hands grip ~28–34% / 63–70%)
+HTML card mobile≤768: top=41% height=36% width=44%; ≤480: width=46% height=37%
+Countdown .num: centered + padded, clamp≤1.05rem to avoid left-edge clip

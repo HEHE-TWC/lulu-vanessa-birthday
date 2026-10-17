@@ -1,3 +1,3 @@
 cropped=433x655
 HTML card: top=54% height=26% width=44% (below face/blush, between hands / red-box)
-PNG: baked yellow card removed; face clear; solid pink torso; hands at sides
+PNG: face clear; no baked card; solid stubby coral-pink hands gripping card L/R edges

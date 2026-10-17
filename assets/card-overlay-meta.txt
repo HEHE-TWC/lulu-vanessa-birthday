@@ -1,5 +1,5 @@
 cropped=433x655
-PNG: solid #FFF6C8 card baked in (from ac29da1 stub-hand style); visible during flight before countdown text
+PNG: solid #FFF6C8 card fill + solid #9C4A3A border/notch edges (cardcolor1)
 Hands: stubby coral-pink stubs in L/R notches; thin dark curved arm lines only — NO tube arms
 HTML card desktop: top=41% height=36% width=40% (hands grip ~28–34% / 63–70%)
 HTML card mobile≤768: top=41% height=36% width=44%; ≤480: width=46% height=37%

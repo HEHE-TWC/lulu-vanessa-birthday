@@ -308,31 +308,35 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   /* Never crop: show ears → feet */
   overflow: visible;
 }
-/* Mobile / small tablet: LuLu much larger in hero (still full-body, no crop).
-   Width ~78–82vw, capped so height stays ~55–65vh. Card % stays on PNG so grip holds. */
+/* Mobile / small tablet: LuLu ~65–72vw so party hat stays BELOW hero title+subtitle.
+   Height ~48–55vh; bottom-aligned; card % stays on PNG so grip holds. */
 @media (max-width: 768px) {
   :root {
-    --flyer-landed-size: clamp(280px, min(80vw, 44vh), 440px);
-    --flyer-landed-h: min(68vh, 580px);
+    --flyer-landed-size: clamp(240px, min(68vw, 50vh), 360px);
+    --flyer-landed-h: min(55vh, 480px);
   }
   .flyer-wrap.idle,
   .flyer-wrap.landed,
   .flyer-wrap {
-    bottom: clamp(8px, 1.5vh, 20px);
+    bottom: clamp(10px, 2vh, 28px);
+  }
+  .hero-copy {
+    padding-bottom: 0.5rem;
+    z-index: 6;
   }
 }
 @media (max-width: 480px) {
   :root {
-    /* Phones: fill most of hero width; height capped via 42vh≈width for 433:655 */
-    --flyer-landed-size: clamp(270px, min(84vw, 42vh), 400px);
-    --flyer-landed-h: min(66vh, 540px);
+    /* Phones: ~65–70vw / ~48–52vh so hat clears subtitle */
+    --flyer-landed-size: clamp(220px, min(68vw, 50vh), 340px);
+    --flyer-landed-h: min(52vh, 440px);
   }
 }
 /* Very short viewports only: shrink just enough to keep hat→feet on screen */
 @media (max-height: 560px) {
   :root {
-    --flyer-landed-size: clamp(200px, min(70vw, 38vh), 320px);
-    --flyer-landed-h: min(55vh, 360px);
+    --flyer-landed-size: clamp(180px, min(62vw, 42vh), 300px);
+    --flyer-landed-h: min(48vh, 340px);
   }
 }
 
@@ -809,8 +813,10 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 }
 .pixel-cd-hero .pixel-kicker {
   font-family: "Press Start 2P", monospace;
-  font-size: clamp(0.55rem, 2vw, 0.7rem);
-  color: var(--text-muted);
+  /* +5px vs prior (~0.55–0.7rem) → darker + larger */
+  font-size: clamp(0.85rem, 2.8vw, 1.05rem);
+  color: #3D2A22;
+  font-weight: 700;
   line-height: 1.8;
   margin-bottom: 18px;
 }

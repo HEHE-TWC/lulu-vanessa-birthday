@@ -39,7 +39,6 @@
     });
 
     const signs = document.querySelectorAll(".birthday-sign");
-    const boardMsg = document.getElementById("cd-message");
     const pixelHero = document.getElementById("pixel-cd-hero");
     const pixelSub = document.getElementById("pixel-cd-sub");
     const done = parts.done;
@@ -48,16 +47,6 @@
       if (done) sign.classList.add("is-today");
       else sign.classList.remove("is-today");
     });
-
-    if (boardMsg) {
-      if (done) {
-        boardMsg.textContent = "今日就係 Vanessa 嘅日子！Happy Birthday ♡";
-        boardMsg.classList.add("party");
-      } else {
-        boardMsg.textContent = "距離 Vanessa 嘅生日仲有…";
-        boardMsg.classList.remove("party");
-      }
-    }
 
     if (pixelHero) {
       if (done) {

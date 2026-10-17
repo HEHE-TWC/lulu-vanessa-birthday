@@ -47,6 +47,7 @@
       if (done) sign.classList.add("is-today");
       else sign.classList.remove("is-today");
     });
+    document.body.classList.toggle("is-birthday-day", done);
 
     if (pixelHero) {
       if (done) {
@@ -102,8 +103,11 @@
   tick();
   window.setInterval(tick, 1000);
 
+  /* ?mock=1 → skip pop animation (local preview screenshots) */
+  const _mockLanded = new URLSearchParams(location.search).has("mock");
+
   if (flyer) {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (_mockLanded || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       flyer.classList.add("idle", "landed");
     } else {
       window.setTimeout(startFlight, 120); /* snappier start */

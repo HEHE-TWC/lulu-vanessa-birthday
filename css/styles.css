@@ -1028,3 +1028,18 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 .pixel-cd-hero .pixel-title { margin-bottom: 16px; }
 .pixel-cd-hero.is-birthday .pixel-title { display: none; }
 
+
+/* —— Pixel fireworks (homepage hero only) —— */
+.pixel-fireworks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3; /* above sky/city, below flyer (10) / hero-copy (12) / nav */
+  pointer-events: none;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pixel-fireworks { display: none; }
+}

@@ -302,10 +302,10 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 .flyer-wrap.flying .flyer-front {
   width: 100%;
   height: auto;
-  max-height: var(--flyer-landed-h);
+  max-height: none; /* avoid letterbox; card % must match full PNG */
   object-fit: contain;
-  object-position: center bottom;
-  /* Never crop: show ears → feet (contain + overflow visible) */
+  object-position: center center;
+  /* Never crop: show ears → feet */
   overflow: visible;
 }
 /* On short phones keep full silhouette readable */
@@ -370,19 +370,19 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 .birthday-sign {
   position: absolute;
   left: 50%;
-  /* Below snout/face; ~half body height for readable mobile type */
-  top: 42%;
+  /* Below snout/blush; between hands (red-box zone) */
+  top: 54%;
   bottom: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 62%;
-  height: 48%;
-  min-height: 48%;
-  max-height: 50%;
+  width: 44%;
+  height: 26%;
+  min-height: 26%;
+  max-height: 28%;
   margin: 0;
-  padding: 7px 6px 5px;
+  padding: 5px 4px 4px;
   /* Solid opaque pale yellow — never see-through */
   background: #FFF6C8 !important;
   background-color: #FFF6C8 !important;
@@ -421,9 +421,9 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 .flyer-wrap.flying .birthday-sign {
   position: absolute;
   left: 50%;
-  top: 38%;
-  width: 58%;
-  height: 50%;
+  top: 52%;
+  width: 42%;
+  height: 25%;
   margin: 0;
   transform: translateX(-50%) scale(0.85);
   opacity: 0;
@@ -448,29 +448,29 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   50% { box-shadow: 0 0 0 2px rgba(247, 168, 184, 0.55); }
 }
 .sign-label {
-  font-size: clamp(0.78rem, 3.2vw, 1.05rem);
+  font-size: clamp(0.62rem, 2.4vw, 0.85rem);
   font-weight: 800;
-  line-height: 1.25;
-  margin-bottom: 6px;
+  line-height: 1.15;
+  margin-bottom: 3px;
   color: var(--text-main);
 }
 .sign-countdown {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
+  gap: 2px;
 }
 .sign-unit {
   background: #FFFBE8;
   background-color: #FFFBE8;
   border: 1px solid #C4A574;
-  border-radius: 6px;
-  padding: 4px 1px;
+  border-radius: 5px;
+  padding: 2px 1px;
   min-width: 0;
   opacity: 1;
 }
 .sign-unit .num {
   display: block;
-  font-size: clamp(0.95rem, 3.2vw, 1.25rem);
+  font-size: clamp(0.72rem, 2.6vw, 0.95rem);
   font-weight: 800;
   color: var(--pink-deep);
   font-variant-numeric: tabular-nums;
@@ -493,8 +493,8 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 .birthday-sign.is-today .sign-countdown { display: none; }
 .birthday-sign.is-today .sign-done { display: block; }
 .sign-click-hint {
-  margin-top: 8px;
-  font-size: clamp(0.78rem, 3.2vw, 1rem); /* slightly larger */
+  margin-top: 3px;
+  font-size: clamp(0.58rem, 2.2vw, 0.78rem);
   font-weight: 800;
   color: #F07A9A; /* pink fill */
   letter-spacing: 0.06em;
@@ -764,9 +764,9 @@ button, .btn-replay, .cta-hint, .birthday-sign {
     animation: none !important;
     position: absolute !important;
     left: 50% !important;
-    top: 42% !important;
-    width: 62% !important;
-    height: 48% !important;
+    top: 54% !important;
+    width: 44% !important;
+    height: 26% !important;
     margin: 0 !important;
   }
   .cloud, .sun { animation: none; }

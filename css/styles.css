@@ -1041,3 +1041,9 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   image-rendering: crisp-edges;
 }
 /* keep canvas visible even with reduced motion (JS slows spawn) */
+
+/* —— Draft sections: hidden until birthday (body.is-birthday-day) ——
+   Preview: ?unlock=1 or ?birthday=1 on any page that loads main.js */
+body:not(.is-birthday-day) .draft-until-birthday {
+  display: none !important;
+}

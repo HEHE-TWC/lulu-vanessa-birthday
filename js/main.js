@@ -2,12 +2,22 @@
  * Vanessa birthday site — countdown (UTC+8) + LuLu pop-up
  * Target: 2026-11-11 00:00:00 Asia/Hong_Kong
  * Pop: full-body sitting LuLu bounces up from bottom → card below face → inside.html
+ *
+ * Draft sections (.draft-until-birthday) show when body.is-birthday-day.
+ * Preview override: ?unlock=1 or ?birthday=1 forces birthday mode (show drafts).
  */
 (function () {
   "use strict";
 
   /** Fixed: 2026-11-11 00:00:00+08 = 2026-11-10 16:00:00Z */
   const BIRTHDAY_TARGET_MS = Date.UTC(2026, 10, 10, 16, 0, 0);
+
+  const _params = new URLSearchParams(location.search);
+  const FORCE_BIRTHDAY =
+    _params.has("unlock") ||
+    _params.has("birthday") ||
+    _params.get("unlock") === "1" ||
+    _params.get("birthday") === "1";
 
   function pad(n) {
     return String(n).padStart(2, "0");
@@ -22,7 +32,15 @@
     const mins = Math.floor(rem / 60000);
     rem %= 60000;
     const secs = Math.floor(rem / 1000);
-    return { days, hours, mins, secs, done: targetMs - Date.now() <= 0 };
+    const naturallyDone = targetMs - Date.now() <= 0;
+    return {
+      days,
+      hours,
+      mins,
+      secs,
+      done: FORCE_BIRTHDAY || naturallyDone,
+      forced: FORCE_BIRTHDAY && !naturallyDone,
+    };
   }
 
   function updateCountdownUI(parts) {
@@ -52,7 +70,11 @@
     if (pixelHero) {
       if (done) {
         pixelHero.classList.add("is-birthday");
-        if (pixelSub) pixelSub.textContent = "今日就係！🎂";
+        if (pixelSub) {
+          pixelSub.textContent = parts.forced
+            ? "預覽解鎖 · ?unlock=1"
+            : "今日就係！🎂";
+        }
       } else {
         pixelHero.classList.remove("is-birthday");
         if (pixelSub) pixelSub.textContent = "2026.11.11 00:00 · UTC+8";
@@ -104,7 +126,7 @@
   window.setInterval(tick, 1000);
 
   /* ?mock=1 → skip pop animation (local preview screenshots) */
-  const _mockLanded = new URLSearchParams(location.search).has("mock");
+  const _mockLanded = _params.has("mock");
 
   if (flyer) {
     if (_mockLanded || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -118,5 +140,6 @@
     startFlight,
     birthdayTargetMs: () => BIRTHDAY_TARGET_MS,
     tick,
+    forceBirthday: FORCE_BIRTHDAY,
   };
 })();

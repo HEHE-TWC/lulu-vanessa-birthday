@@ -1,3 +1,5 @@
 cropped=433x655
-HTML card: top=54% height=26% width=40% (between stubby connected hands)
-PNG: face clear; no baked card; solid stubby pink arms connected to torso gripping card L/R
+HTML card desktop: top=52% height=27% width=40% (hands grip at ~27%/73%)
+HTML card mobile≤768: top=50% height=32% width=52%; ≤480: top=49% height=34% width=54%
+PNG: Pillow-composited stubby arms (deeper pink #F7AFA5 + dark outline) from torso sides → rounded hands; no baked card
+Desktop: --flyer-landed-size max 300px @≥769px; hero-copy z-index 12; hat clears subtitle (~247px gap @1280)

@@ -21,9 +21,10 @@
   --nav-h: 56px;
   /* Pop-up size → full-body sitting figure (never crop head/feet) */
   --flyer-size: clamp(200px, 36vw, 300px);
-  /* Width drives height (PNG 433×655); object-fit:contain keeps full silhouette */
-  --flyer-landed-size: clamp(240px, 48vmin, 380px);
-  --flyer-landed-h: min(60vh, 520px);
+  /* Width drives height (PNG 433×655); object-fit:contain keeps full silhouette.
+     Desktop max ~340px so party hat stays below hero title+subtitle. */
+  --flyer-landed-size: clamp(220px, 42vmin, 340px);
+  --flyer-landed-h: min(52vh, 460px);
   /* ~30fps-friendly: 1.4s bounce pop ≈ 42 frames @ 30fps */
   --flight-duration: 0.75s; /* shorter bounce */
   --cursor-default: url("../assets/cursor-default.png") 0 0, auto;
@@ -231,13 +232,14 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 
 .hero-copy {
   position: absolute;
-  top: 10%;
+  top: 6%;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  z-index: 5;
+  z-index: 12; /* above flyer hat */
   width: min(92%, 480px);
   pointer-events: none;
+  padding: 0 12px 1.25rem;
 }
 .hero-copy h1 {
   font-size: clamp(1.6rem, 5.5vw, 2.6rem);
@@ -322,7 +324,44 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   }
   .hero-copy {
     padding-bottom: 0.5rem;
-    z-index: 6;
+    z-index: 12;
+  }
+  /* Mobile: larger countdown card so label + units + 點擊進入 all fit */
+  .birthday-sign {
+    top: 50%;
+    width: 52%;
+    height: 32%;
+    min-height: 32%;
+    max-height: 36%;
+    padding: 8px 6px 6px;
+    border-width: 3px !important;
+    border-radius: 12px;
+  }
+  .flyer-wrap.flying .birthday-sign {
+    top: 50%;
+    width: 52%;
+    height: 30%;
+  }
+  .sign-label {
+    font-size: clamp(0.72rem, 3.2vw, 0.95rem);
+    margin-bottom: 4px;
+  }
+  .birthday-sign .sign-unit .num {
+    font-size: clamp(1.05rem, 5.2vw, 1.55rem);
+  }
+  .birthday-sign .sign-unit .lbl {
+    font-size: clamp(0.58rem, 2.4vw, 0.75rem);
+  }
+  .birthday-sign .sign-click-hint {
+    font-size: clamp(0.85rem, 3.6vw, 1.05rem);
+    margin-top: 6px;
+  }
+  .sign-countdown {
+    gap: 4px;
+  }
+  .sign-unit {
+    padding: 4px 2px;
+    border-radius: 6px;
   }
 }
 @media (max-width: 480px) {
@@ -331,12 +370,51 @@ button, .btn-replay, .cta-hint, .birthday-sign {
     --flyer-landed-size: clamp(220px, min(68vw, 50vh), 340px);
     --flyer-landed-h: min(52vh, 440px);
   }
+  .birthday-sign {
+    top: 49%;
+    width: 54%;
+    height: 34%;
+    min-height: 34%;
+    max-height: 38%;
+    padding: 8px 6px 7px;
+  }
+  .sign-label {
+    font-size: clamp(0.78rem, 3.6vw, 1rem);
+  }
+  .birthday-sign .sign-unit .num {
+    font-size: clamp(1.1rem, 5.8vw, 1.6rem);
+  }
+  .birthday-sign .sign-click-hint {
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
+  }
 }
 /* Very short viewports only: shrink just enough to keep hat→feet on screen */
 @media (max-height: 560px) {
   :root {
     --flyer-landed-size: clamp(180px, min(62vw, 42vh), 300px);
     --flyer-landed-h: min(48vh, 340px);
+  }
+}
+
+/* Desktop / tablet landscape: keep hat clear of subtitle */
+@media (min-width: 769px) {
+  :root {
+    --flyer-landed-size: clamp(220px, 34vmin, 300px);
+    --flyer-landed-h: min(46vh, 400px);
+  }
+  .flyer-wrap.idle,
+  .flyer-wrap.landed,
+  .flyer-wrap {
+    bottom: clamp(6px, 1.2vh, 20px);
+  }
+  .hero-copy {
+    top: 4%;
+    z-index: 12;
+    padding-bottom: 2rem;
+  }
+  .hero-copy .sub {
+    position: relative;
+    z-index: 13;
   }
 }
 
@@ -394,19 +472,19 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 .birthday-sign {
   position: absolute;
   left: 50%;
-  /* Below snout/blush; between hands (red-box zone) */
-  top: 54%;
+  /* Below snout/blush; between stubby hands gripping L/R edges */
+  top: 52%;
   bottom: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 40%;
-  height: 26%;
-  min-height: 26%;
-  max-height: 28%;
+  height: 27%;
+  min-height: 27%;
+  max-height: 30%;
   margin: 0;
-  padding: 5px 4px 4px;
+  padding: 6px 5px 5px;
   /* Solid opaque pale yellow — never see-through */
   background: #FFF6C8 !important;
   background-color: #FFF6C8 !important;
@@ -788,9 +866,9 @@ button, .btn-replay, .cta-hint, .birthday-sign {
     animation: none !important;
     position: absolute !important;
     left: 50% !important;
-    top: 54% !important;
-    width: 44% !important;
-    height: 26% !important;
+    top: 52% !important;
+    width: 42% !important;
+    height: 27% !important;
     margin: 0 !important;
   }
   .cloud, .sun { animation: none; }

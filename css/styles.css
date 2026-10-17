@@ -877,7 +877,7 @@ button, .btn-replay, .cta-hint, .birthday-sign {
     animation: none !important;
     position: absolute !important;
     left: 50% !important;
-    top: 41% !important;
+    top: calc(36% + 2cm) !important;
     width: 40% !important;
     height: 36% !important;
     margin: 0 !important;

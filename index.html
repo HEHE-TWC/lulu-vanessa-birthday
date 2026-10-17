@@ -8,19 +8,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=cardup1" />
+  <link rel="stylesheet" href="css/styles.css?v=insidehide2" />
 </head>
 <body class="landing">
   <nav class="site-nav" aria-label="主選單">
     <a class="nav-brand" href="#top">
-      <img src="assets/lulu-mascot.png?v=cardup1" alt="" width="36" height="36" />
+      <img src="assets/lulu-mascot.png?v=insidehide2" alt="" width="36" height="36" />
       <span>♡ For Vanessa</span>
     </a>
     <ul class="nav-links">
       <li><a href="#countdown">倒數</a></li>
-      <li><a href="#gallery">相簿</a></li>
-      <li><a href="#notes">情話</a></li>
-      <li><a href="#surprise">驚喜</a></li>
     </ul>
   </nav>
 
@@ -98,9 +95,9 @@
     <!-- Pop-up mascot: full-body bounce from bottom, card below face -->
     <div id="lulu-flyer" class="flyer-wrap" role="img" aria-label="LuLu 全身由下彈出，手持生日倒數紙牌">
       <div class="flyer">
-        <img class="flyer-mascot flyer-back" src="assets/lulu-fly-back.png?v=cardup1" alt="" width="479" height="593" draggable="false" hidden />
-        <img class="flyer-mascot flyer-front flyer-fullbody" src="assets/lulu-fullbody.png?v=cardup1" alt="原創 LuLu 風全身吉祥物（派對帽）" width="433" height="655" draggable="false" />
-        <a class="birthday-sign" id="birthday-sign" href="inside.html" aria-label="離 Vanessa 生日倒數，點擊進入下一頁">
+        <img class="flyer-mascot flyer-back" src="assets/lulu-fly-back.png?v=insidehide2" alt="" width="479" height="593" draggable="false" hidden />
+        <img class="flyer-mascot flyer-front flyer-fullbody" src="assets/lulu-fullbody.png?v=insidehide2" alt="原創 LuLu 風全身吉祥物（派對帽）" width="433" height="655" draggable="false" />
+        <a class="birthday-sign" id="birthday-sign" href="inside.html?v=insidehide2" aria-label="離 Vanessa 生日倒數，點擊進入下一頁">
           <div class="sign-label">離 Vanessa 生日</div>
           <div class="sign-countdown" aria-live="polite">
             <div class="sign-unit"><span class="num" data-cd="days">–</span><span class="lbl">天</span></div>
@@ -119,61 +116,12 @@
     </div>
   </header>
 
-  <section class="section" id="countdown">
-    <h2 class="pixel-title"><img class="pixel-title-img" src="assets/title-daoshuzhong.png?v=cardup1" alt="倒數中" width="280" height="104" /></h2>
-    <p class="lead">11 月 11 日 · UTC+8</p>
-    <div class="countdown-board" aria-live="polite">
-      <div class="cd-card"><div class="num" data-cd="days">–</div><div class="lbl">天</div></div>
-      <div class="cd-card"><div class="num" data-cd="hours">–</div><div class="lbl">小時</div></div>
-      <div class="cd-card"><div class="num" data-cd="mins">–</div><div class="lbl">分</div></div>
-      <div class="cd-card"><div class="num" data-cd="secs">–</div><div class="lbl">秒</div></div>
-    </div>
-    <p class="cd-message" id="cd-message">距離 Vanessa 嘅生日仲有…</p>
-  </section>
+  
+  <!-- Draft sections (gallery/notes/surprise/extra countdown) removed from live page.
+       Full backup: backups/index-full-before-hide-2026-10-17.html -->
 
-  <section class="section-alt" id="gallery">
-    <div class="section-inner section" style="padding-top:48px;padding-bottom:48px">
-      <h2>我哋嘅小碎片</h2>
-      <p class="lead">相簿稍後加入（6–12 張）</p>
-      <div class="placeholder-grid">
-        <div class="ph-card">相片 1</div>
-        <div class="ph-card">相片 2</div>
-        <div class="ph-card">相片 3</div>
-        <div class="ph-card">相片 4</div>
-        <div class="ph-card">相片 5</div>
-        <div class="ph-card">相片 6</div>
-      </div>
-    </div>
-  </section>
 
-  <section class="section" id="notes">
-    <h2>情話</h2>
-    <p class="lead">Love notes 待你填</p>
-    <div class="notes-stack">
-      <div class="note-card">（佔位）多謝你成為我嘅…</div>
-      <div class="note-card">（佔位）記得嗰日我哋…</div>
-      <div class="note-card">（佔位）I love you because…</div>
-    </div>
-  </section>
-
-  <section class="section-alt" id="surprise">
-    <div class="section-inner section" style="padding-top:48px;padding-bottom:48px">
-      <h2>打開呢個罐頭…</h2>
-      <p class="lead">驚喜內容稍後填</p>
-      <div class="surprise-box" id="surprise-box">
-        <p class="surprise-tease">🐷 點擊打開</p>
-        <button type="button" id="btn-surprise">打開罐頭</button>
-        <p class="surprise-reveal">（hidden message 佔位 — 等你寫）♡</p>
-      </div>
-    </div>
-  </section>
-
-  <footer class="site-footer">
-    <p>Made with <span class="heart">♡</span> for Vanessa · Inspired by LuLu the Piggy · 非官方粉絲向私人網站</p>
-    <p style="margin-top:6px">原創 mascot · 唔使用官方商品圖作商業用途</p>
-  </footer>
-
-  <script src="js/main.js?v=cardup1"></script>
-  <script src="js/fireworks.js?v=cardup1"></script>
+  <script src="js/main.js?v=insidehide2"></script>
+  <script src="js/fireworks.js?v=insidehide2"></script>
 </body>
 </html>

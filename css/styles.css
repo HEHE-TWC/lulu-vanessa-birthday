@@ -1,0 +1,900 @@
+/* LuLu Birthday Site — Vanessa · Design tokens from DESIGN_BRIEF.md */
+:root {
+  --pink-primary: #F7A8B8;
+  --pink-deep: #E88B9A;
+  --peach: #F5C6A8;
+  --blush: #F4B4C0;
+  --snout-yellow: #F5D76E;
+  --cream-highlight: #FFF3E8;
+  --bg-page: #FFF8F5;
+  --bg-section-alt: #FFEFE8;
+  --neutral-soft: #F0E4DC;
+  --white-soft: #FFFBFA;
+  --text-main: #5C4033;
+  --text-muted: #8B6F63;
+  --text-on-pink: #FFF8F5;
+  --mint-soft: #C8E6D4;
+  --gold-soft: #E8C97A;
+  --sky-top: #87CEEB;
+  --sky-mid: #B8E0F5;
+  --sky-low: #E8F6FC;
+  --nav-h: 56px;
+  /* Pop-up size → full-body sitting figure (never crop head/feet) */
+  --flyer-size: clamp(200px, 36vw, 300px);
+  /* Width + max height leave room for card; object-fit:contain keeps full silhouette */
+  --flyer-landed-size: clamp(230px, 52vmin, 360px);
+  --flyer-landed-h: min(58vh, 480px);
+  /* ~30fps-friendly: 1.4s bounce pop ≈ 42 frames @ 30fps */
+  --flight-duration: 0.75s; /* shorter bounce */
+  --cursor-default: url("../assets/cursor-default.png") 0 0, auto;
+  --cursor-pointer: url("../assets/cursor-pointer.png") 6 1, pointer;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Nunito", "Noto Sans TC", system-ui, sans-serif;
+  color: var(--text-main);
+  background: var(--bg-page);
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: var(--cursor-default);
+}
+
+/* —— Landing lock: hide everything below hero until user clicks card → inside.html —— */
+html:has(body.landing),
+body.landing {
+  height: 100%;
+  overflow: hidden !important;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+body.landing .site-nav {
+  /* keep nav but prevent scroll-away */
+}
+body.landing .hero-scene {
+  height: calc(100svh - var(--nav-h));
+  height: calc(100dvh - var(--nav-h));
+  min-height: calc(100svh - var(--nav-h));
+  max-height: calc(100dvh - var(--nav-h));
+}
+body.landing .hero-scene ~ *:not(.scene-controls) {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+/* Extra safety: sections after hero never paint on landing */
+body.landing > section,
+body.landing > footer {
+  display: none !important;
+}
+
+
+img { max-width: 100%; display: block; }
+a { color: var(--pink-deep); text-decoration: none; cursor: var(--cursor-pointer); }
+a:hover { text-decoration: underline; }
+button, .btn-replay, .cta-hint, .birthday-sign {
+  cursor: var(--cursor-pointer);
+}
+
+/* —— Nav —— */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: rgba(255, 248, 245, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--neutral-soft);
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--text-main);
+  text-decoration: none;
+}
+.nav-brand img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: var(--cream-highlight);
+}
+.nav-links {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  font-size: 13px;
+}
+.nav-links a {
+  color: var(--text-muted);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 4px 6px;
+  border-radius: 8px;
+}
+.nav-links a:hover {
+  color: var(--pink-deep);
+  background: var(--blush);
+  text-decoration: none;
+}
+@media (min-width: 640px) {
+  .nav-links { gap: 20px; font-size: 14px; }
+  .site-nav { padding: 0 24px; }
+}
+
+/* —— Hero scene —— */
+.hero-scene {
+  position: relative;
+  width: 100%;
+  min-height: calc(100svh - var(--nav-h));
+  min-height: calc(100vh - var(--nav-h));
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    var(--sky-top) 0%,
+    var(--sky-mid) 38%,
+    var(--sky-low) 58%,
+    #FFF5EB 72%,
+    var(--bg-page) 100%
+  );
+  z-index: 0;
+}
+
+.sun {
+  position: absolute;
+  top: 8%;
+  right: 12%;
+  width: clamp(56px, 12vw, 96px);
+  height: clamp(56px, 12vw, 96px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #FFF9C4, #F5D76E 55%, #F0C75A 100%);
+  box-shadow: 0 0 40px 12px rgba(245, 215, 110, 0.45);
+  z-index: 1;
+  animation: sun-pulse 4s ease-in-out infinite;
+}
+@keyframes sun-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.04); opacity: 0.95; }
+}
+
+.cloud {
+  position: absolute;
+  z-index: 1;
+  background: #fff;
+  border-radius: 40px;
+  opacity: 0.85;
+}
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+}
+.cloud-a {
+  width: 80px; height: 28px; top: 14%; left: 8%;
+  animation: drift 28s linear infinite;
+}
+.cloud-a::before { width: 36px; height: 36px; top: -18px; left: 12px; }
+.cloud-a::after { width: 44px; height: 44px; top: -22px; left: 32px; }
+.cloud-b {
+  width: 100px; height: 32px; top: 22%; left: 55%;
+  animation: drift 36s linear infinite reverse;
+  opacity: 0.7;
+}
+.cloud-b::before { width: 42px; height: 42px; top: -20px; left: 16px; }
+.cloud-b::after { width: 50px; height: 50px; top: -26px; left: 40px; }
+.cloud-c {
+  width: 60px; height: 22px; top: 10%; left: 72%;
+  animation: drift 40s linear infinite;
+  opacity: 0.65;
+}
+.cloud-c::before { width: 28px; height: 28px; top: -14px; left: 8px; }
+.cloud-c::after { width: 34px; height: 34px; top: -16px; left: 24px; }
+@keyframes drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(40px); }
+}
+
+/* City — scaled up proportionally */
+.city {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(220px, 48vh, 400px);
+  z-index: 2;
+  pointer-events: none;
+  transform: scale(1.08);
+  transform-origin: bottom center;
+}
+.city svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero-copy {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 5;
+  width: min(92%, 480px);
+  pointer-events: none;
+}
+.hero-copy h1 {
+  font-size: clamp(1.6rem, 5.5vw, 2.6rem);
+  font-weight: 800;
+  color: var(--text-main);
+  text-shadow: 0 2px 0 rgba(255,255,255,0.7);
+  line-height: 1.25;
+}
+.hero-copy .sub {
+  margin-top: 8px;
+  font-size: clamp(0.9rem, 2.8vw, 1.1rem);
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.hero-copy .cta-hint {
+  margin-top: 16px;
+  display: inline-block;
+  pointer-events: auto;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-on-pink);
+  background: var(--pink-primary);
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(232, 139, 154, 0.35);
+  text-decoration: none;
+}
+.hero-copy .cta-hint:hover { background: var(--pink-deep); text-decoration: none; }
+
+/* —— Pop-up LuLu (bottom → up bounce, then hold card) —— */
+.flyer-wrap {
+  position: absolute;
+  z-index: 10;
+  width: var(--flyer-landed-size);
+  left: 50%;
+  top: auto;
+  bottom: clamp(12px, 2.5vh, 36px);
+  right: auto;
+  will-change: transform;
+  /* Start below viewport, ready to pop — full body incl. feet */
+  transform: translate3d(-50%, 130%, 0) scale(0.85);
+  overflow: visible;
+}
+.flyer-wrap.flying {
+  animation: lulu-popup var(--flight-duration) cubic-bezier(0.22, 1.4, 0.36, 1) forwards;
+}
+.flyer-wrap.idle,
+.flyer-wrap.landed {
+  width: var(--flyer-landed-size);
+  max-height: none; /* full body + card; never clip feet */
+  left: 50%;
+  top: auto;
+  bottom: clamp(12px, 2.5vh, 36px);
+  right: auto;
+  transform: translate3d(-50%, 0, 0);
+  animation: bob-idle 2.4s ease-in-out infinite;
+  overflow: visible;
+}
+.flyer-wrap.idle .flyer-front,
+.flyer-wrap.landed .flyer-front,
+.flyer-wrap.flying .flyer-front {
+  width: 100%;
+  height: auto;
+  max-height: var(--flyer-landed-h);
+  object-fit: contain;
+  object-position: center bottom;
+  /* Never crop: show ears → feet (contain + overflow visible) */
+  overflow: visible;
+}
+/* On short phones keep full silhouette readable */
+@media (max-height: 700px) {
+  :root {
+    --flyer-landed-size: clamp(180px, 42vmin, 280px);
+    --flyer-landed-h: min(50vh, 360px);
+  }
+}
+
+/* Bottom → up bounce pop, then settle at center-bottom */
+@keyframes lulu-popup {
+  0% {
+    transform: translate3d(-50%, 130%, 0) scale(0.82);
+  }
+  /* spring past rest */
+  55% {
+    transform: translate3d(-50%, -8%, 0) scale(1.06);
+  }
+  /* soft settle */
+  78% {
+    transform: translate3d(-50%, 3%, 0) scale(0.98);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0) scale(1);
+  }
+}
+
+@keyframes bob-idle {
+  0%, 100% { transform: translate3d(-50%, 0, 0); }
+  50% { transform: translate3d(-50%, -10px, 0); }
+}
+
+.flyer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.flyer-mascot {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  filter: drop-shadow(0 10px 18px rgba(92, 64, 51, 0.2));
+  user-select: none;
+  pointer-events: none;
+  /* Full silhouette: ears through feet */
+  object-fit: contain;
+}
+
+/* Always full-body front for pop-up (no Superman back) */
+.flyer-back { display: none !important; }
+.flyer-front { display: block; }
+.flyer-wrap.idle .flyer-front,
+.flyer-wrap.landed .flyer-front,
+.flyer-wrap.flying .flyer-front { display: block; }
+
+/* Large HTML countdown card (~50% mascot height), below face at hands.
+   Mascot has NO baked card; full body (hat → feet) always visible. */
+.birthday-sign {
+  position: absolute;
+  left: 50%;
+  /* Below snout/face; ~half body height for readable mobile type */
+  top: 42%;
+  bottom: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 62%;
+  height: 48%;
+  min-height: 48%;
+  max-height: 50%;
+  margin: 0;
+  padding: 7px 6px 5px;
+  background: #FFF6C8; /* pale yellow 淡黃色 */
+  border: 3px solid var(--text-main);
+  border-radius: 12px;
+  box-shadow:
+    0 4px 0 #E8D9A0,
+    0 10px 22px rgba(92, 64, 51, 0.18);
+  /* solid — never translucent over pig */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  text-decoration: none;
+  color: inherit;
+  z-index: 3;
+  transform: translateX(-50%) scale(0.92);
+  transition: opacity 0.18s ease, transform 0.18s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.flyer-wrap.idle .birthday-sign,
+.flyer-wrap.landed .birthday-sign {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+  pointer-events: auto;
+  animation: sign-pulse 2.2s ease-in-out infinite;
+}
+.flyer-wrap.flying .birthday-sign {
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  width: 58%;
+  height: 50%;
+  margin: 0;
+  transform: translateX(-50%) scale(0.85);
+  opacity: 0;
+  pointer-events: none;
+}
+.flyer-wrap.idle .flyer,
+.flyer-wrap.landed .flyer {
+  /* keep mascot+card stacked as one ~1/3-viewport unit */
+  min-height: 0;
+}
+.birthday-sign:hover,
+.birthday-sign:focus-visible {
+  text-decoration: none;
+  box-shadow: 0 0 0 3px rgba(247, 168, 184, 0.7);
+  outline: none;
+}
+.birthday-sign::before {
+  content: none; /* overlay sits on baked card — no tape */
+}
+@keyframes sign-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(247, 168, 184, 0); }
+  50% { box-shadow: 0 0 0 2px rgba(247, 168, 184, 0.55); }
+}
+.sign-label {
+  font-size: clamp(0.78rem, 3.2vw, 1.05rem);
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 6px;
+  color: var(--text-main);
+}
+.sign-countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+.sign-unit {
+  background: #FFFBE8;
+  border: 1px solid #E8D9A0;
+  border-radius: 6px;
+  padding: 4px 1px;
+  min-width: 0;
+}
+.sign-unit .num {
+  display: block;
+  font-size: clamp(0.95rem, 3.2vw, 1.25rem);
+  font-weight: 800;
+  color: var(--pink-deep);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.sign-unit .lbl {
+  display: block;
+  font-size: 0.55rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.sign-done {
+  display: none;
+  font-weight: 800;
+  color: var(--pink-deep);
+  font-size: 0.9rem;
+}
+.birthday-sign.is-today .sign-countdown { display: none; }
+.birthday-sign.is-today .sign-done { display: block; }
+.sign-click-hint {
+  margin-top: 8px;
+  font-size: clamp(0.78rem, 3.2vw, 1rem); /* slightly larger */
+  font-weight: 800;
+  color: #F07A9A; /* pink fill */
+  letter-spacing: 0.06em;
+  opacity: 1;
+  /* white outline / border on text */
+  -webkit-text-stroke: 2.5px #FFFFFF;
+  paint-order: stroke fill;
+  text-shadow:
+    -1.5px -1.5px 0 #fff,
+     1.5px -1.5px 0 #fff,
+    -1.5px  1.5px 0 #fff,
+     1.5px  1.5px 0 #fff,
+     0 0 1px #fff;
+}
+
+.scene-controls {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 20;
+}
+.btn-replay {
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  background: var(--white-soft);
+  border: 2px solid var(--peach);
+  border-radius: 999px;
+  padding: 6px 14px;
+  box-shadow: 0 2px 8px rgba(92, 64, 51, 0.1);
+}
+.btn-replay:hover {
+  background: var(--blush);
+  border-color: var(--pink-primary);
+}
+
+/* —— Sections —— */
+.section {
+  padding: 48px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.section-alt { background: var(--bg-section-alt); max-width: none; }
+.section-alt .section-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.section h2 {
+  font-size: clamp(1.35rem, 4vw, 1.85rem);
+  font-weight: 800;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.section .lead {
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  font-size: 0.95rem;
+}
+
+.countdown-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+.cd-card {
+  background: var(--white-soft);
+  border-radius: 16px;
+  padding: 16px 8px;
+  text-align: center;
+  border: 2px solid var(--blush);
+  box-shadow: 0 4px 16px rgba(247, 168, 184, 0.25);
+}
+.cd-card .num {
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  font-weight: 800;
+  color: var(--pink-deep);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.cd-card .lbl {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+.cd-message {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.cd-message.party {
+  color: var(--pink-deep);
+  background: var(--mint-soft);
+  display: inline-block;
+  width: 100%;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.placeholder-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 640px) {
+  .placeholder-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.ph-card {
+  aspect-ratio: 1;
+  background: var(--white-soft);
+  border: 2px dashed var(--neutral-soft);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 12px;
+}
+.notes-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+.note-card {
+  background: var(--cream-highlight);
+  border-left: 4px solid var(--pink-primary);
+  border-radius: 12px;
+  padding: 16px 18px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.surprise-box {
+  max-width: 360px;
+  margin: 0 auto;
+  background: var(--white-soft);
+  border: 3px solid var(--peach);
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+}
+.surprise-box button {
+  margin-top: 12px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  background: var(--pink-primary);
+  color: var(--text-on-pink);
+  border: none;
+  border-radius: 999px;
+  padding: 12px 28px;
+}
+.surprise-box button:hover { background: var(--pink-deep); }
+.surprise-reveal {
+  display: none;
+  margin-top: 16px;
+  font-weight: 700;
+  color: var(--pink-deep);
+}
+.surprise-box.open .surprise-reveal { display: block; }
+.surprise-box.open .surprise-tease { display: none; }
+
+.site-footer {
+  padding: 28px 20px 40px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--neutral-soft);
+  background: var(--bg-page);
+}
+.site-footer .heart { color: var(--pink-deep); }
+
+/* —— Inside page shell —— */
+.page-inside { min-height: 100vh; }
+.inside-shell {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+.inside-hero {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.inside-mascot {
+  width: 120px;
+  height: auto;
+  margin: 0 auto 16px;
+  filter: drop-shadow(0 6px 12px rgba(92, 64, 51, 0.15));
+}
+.inside-hero h1 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 800;
+}
+.inside-hero .lead {
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-weight: 600;
+}
+.inside-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 640px) {
+  .inside-grid { grid-template-columns: 1fr 1fr; }
+  .inside-card-wide { grid-column: 1 / -1; }
+}
+.inside-card {
+  background: var(--white-soft);
+  border: 2px dashed var(--neutral-soft);
+  border-radius: 16px;
+  padding: 24px 20px;
+  min-height: 120px;
+}
+.inside-card h2 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.inside-card p { color: var(--text-muted); font-size: 0.9rem; }
+.inside-back {
+  text-align: center;
+  margin-top: 36px;
+}
+.inside-back .cta-hint {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-on-pink);
+  background: var(--pink-primary);
+  padding: 10px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(232, 139, 154, 0.35);
+}
+.inside-back .cta-hint:hover { background: var(--pink-deep); text-decoration: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .flyer-wrap,
+  .flyer-wrap.flying,
+  .flyer-wrap.idle {
+    animation: none !important;
+    left: 50%;
+    top: auto;
+    bottom: clamp(12px, 2.5vh, 36px);
+    width: var(--flyer-landed-size);
+    transform: translate3d(-50%, 0, 0);
+  }
+  .flyer-wrap .flyer-back { display: none !important; }
+  .flyer-wrap .flyer-front { display: block !important; }
+  .flyer-wrap .birthday-sign {
+    opacity: 1 !important;
+    transform: translateX(-50%) scale(1) !important;
+    pointer-events: auto !important;
+    animation: none !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: 42% !important;
+    width: 62% !important;
+    height: 48% !important;
+    margin: 0 !important;
+  }
+  .cloud, .sun { animation: none; }
+}
+
+
+/* —— Inside: pixel-art countdown —— */
+.pixel-cd-hero {
+  text-align: center;
+  margin-bottom: 36px;
+  padding: 28px 16px 32px;
+  background:
+    linear-gradient(180deg, #FFEFE8 0%, #FFF8F5 100%);
+  border: 4px solid var(--text-main);
+  border-radius: 4px;
+  box-shadow:
+    4px 4px 0 var(--pink-primary),
+    8px 8px 0 var(--peach);
+  image-rendering: pixelated;
+}
+.pixel-cd-hero .pixel-kicker {
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(0.55rem, 2vw, 0.7rem);
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 18px;
+}
+.pixel-countdown {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.pixel-cd-unit {
+  background: var(--white-soft);
+  border: 3px solid var(--text-main);
+  border-radius: 2px;
+  padding: 14px 4px 10px;
+  box-shadow: inset -2px -2px 0 var(--neutral-soft), 2px 2px 0 var(--blush);
+}
+.pixel-cd-unit .num {
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(0.85rem, 3.5vw, 1.35rem);
+  color: var(--pink-deep);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  image-rendering: pixelated;
+}
+.pixel-cd-unit .lbl {
+  margin-top: 10px;
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(0.4rem, 1.5vw, 0.5rem);
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+.pixel-birthday-msg {
+  display: none;
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(0.85rem, 3.8vw, 1.45rem);
+  color: var(--pink-deep);
+  line-height: 1.7;
+  padding: 20px 12px;
+  text-shadow: 3px 3px 0 var(--blush);
+  animation: pixel-pop 0.8s steps(4) infinite alternate;
+}
+.pixel-cd-hero.is-birthday .pixel-countdown,
+.pixel-cd-hero.is-birthday .pixel-kicker { display: none; }
+.pixel-cd-hero.is-birthday .pixel-birthday-msg { display: block; }
+@keyframes pixel-pop {
+  from { transform: scale(1); }
+  to { transform: scale(1.04); }
+}
+.pixel-cd-sub {
+  margin-top: 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+
+/* Large HTML card countdown typography (~half body) */
+.birthday-sign .sign-countdown {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 3px;
+  width: 100%;
+}
+.birthday-sign .sign-unit .num {
+  font-size: clamp(0.95rem, 4.8vw, 1.45rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--pink-deep);
+}
+.birthday-sign .sign-unit .lbl {
+  font-size: clamp(0.55rem, 2vw, 0.7rem);
+  opacity: 0.9;
+  font-weight: 700;
+}
+.birthday-sign .sign-done {
+  font-size: clamp(0.85rem, 3.2vw, 1.1rem);
+  font-weight: 800;
+}
+.birthday-sign .sign-click-hint {
+  font-size: clamp(0.78rem, 3.2vw, 1rem);
+  margin-top: 6px;
+  opacity: 1;
+  font-weight: 800;
+}
+
+
+.pixel-cd-lead {
+  font-family: "Nunito", "Noto Sans TC", system-ui, sans-serif;
+  font-size: clamp(0.95rem, 3.2vw, 1.15rem);
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0 0 18px;
+  line-height: 1.4;
+}
+.pixel-cd-hero.is-birthday .pixel-cd-lead { display: none; }
+
+.pixel-cd-lead.party {
+  color: var(--pink-deep);
+}
+
+.pixel-title {
+  text-align: center;
+  margin: 0 0 14px;
+  line-height: 0;
+}
+.pixel-title-img {
+  display: inline-block;
+  width: min(72vw, 280px);
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  /* black text + white outline baked into PNG */
+}
+.pixel-cd-hero .pixel-title { margin-bottom: 16px; }
+.pixel-cd-hero.is-birthday .pixel-title { display: none; }
+

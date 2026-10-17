@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LuLu Birthday Site — Wireframe Preview</title>
+  <style>
+    :root {
+      --pink-primary: #F7A8B8;
+      --pink-deep: #E88B9A;
+      --peach: #F5C6A8;
+      --blush: #F4B4C0;
+      --snout-yellow: #F5D76E;
+      --cream-highlight: #FFF3E8;
+      --bg-page: #FFF8F5;
+      --bg-section-alt: #FFEFE8;
+      --neutral-soft: #F0E4DC;
+      --white-soft: #FFFBFA;
+      --text-main: #5C4033;
+      --text-muted: #8B6F63;
+      --text-on-pink: #FFF8F5;
+      --mint-soft: #C8E6D4;
+      --gold-soft: #E8C97A;
+      --radius: 16px;
+      --shadow: 0 4px 20px rgba(92, 64, 51, 0.08);
+      --max: 800px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Nunito", "Noto Sans TC", system-ui, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    .banner {
+      background: var(--peach);
+      color: var(--text-main);
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 13px;
+      border-bottom: 2px dashed var(--pink-deep);
+    }
+    .banner strong { color: var(--pink-deep); }
+    header.nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 248, 245, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--neutral-soft);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .nav-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, var(--pink-primary), var(--peach));
+      border: 2px solid var(--snout-yellow);
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+      font-size: 12px;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--white-soft);
+      border: 1px solid var(--neutral-soft);
+    }
+    .nav-links a:hover {
+      background: var(--pink-primary);
+      color: var(--text-on-pink);
+      border-color: var(--pink-deep);
+    }
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .section {
+      background: var(--white-soft);
+      border: 2px dashed var(--pink-deep);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .section.alt {
+      background: var(--bg-section-alt);
+      border-color: var(--peach);
+    }
+    .label {
+      position: absolute;
+      top: -10px;
+      left: 14px;
+      background: var(--pink-deep);
+      color: var(--text-on-pink);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 2px 10px;
+      border-radius: 999px;
+    }
+    .section h2 { font-size: 1.15rem; margin: 8px 0 6px; }
+    .section .hint {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .hero-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+    .mascot-box {
+      width: min(100%, 240px);
+      aspect-ratio: 1;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 50% 40%, var(--cream-highlight), transparent 55%),
+        linear-gradient(160deg, var(--pink-primary), var(--blush) 60%, var(--peach));
+      border: 3px solid var(--snout-yellow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--text-main);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .mascot-box .snout {
+      width: 48px;
+      height: 28px;
+      background: var(--snout-yellow);
+      border-radius: 50%;
+      margin-top: 4px;
+    }
+    .mascot-box .blush-dots {
+      display: flex;
+      gap: 40px;
+      margin-top: -8px;
+    }
+    .mascot-box .blush-dots span {
+      width: 14px;
+      height: 8px;
+      background: var(--pink-deep);
+      opacity: 0.55;
+      border-radius: 50%;
+    }
+    .hero-copy h1 {
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      line-height: 1.25;
+    }
+    .hero-copy p {
+      color: var(--text-muted);
+      margin: 8px 0 14px;
+      font-size: 14px;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--pink-primary);
+      color: var(--text-on-pink);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: default;
+      box-shadow: 0 2px 0 var(--pink-deep);
+    }
+    .countdown-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .count-cell {
+      background: var(--white-soft);
+      border: 1px solid var(--neutral-soft);
+      border-radius: 12px;
+      padding: 12px 4px;
+      text-align: center;
+    }
+    .count-cell .num {
+      font-size: clamp(1.25rem, 4vw, 1.75rem);
+      font-weight: 800;
+      color: var(--pink-deep);
+    }
+    .count-cell .unit {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .photo-slot {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      background: var(--neutral-soft);
+      border: 2px solid var(--blush);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 8px;
+    }
+    .photo-slot.doodle {
+      background: linear-gradient(135deg, var(--cream-highlight), var(--mint-soft));
+      border-color: var(--gold-soft);
+    }
+    .notes {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .note-card {
+      background: var(--cream-highlight);
+      border-left: 4px solid var(--pink-primary);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 14px;
+    }
+    .note-card .meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+    .surprise-box {
+      background: linear-gradient(180deg, var(--white-soft), var(--bg-section-alt));
+      border: 2px solid var(--gold-soft);
+      border-radius: 16px;
+      padding: 28px 16px;
+      text-align: center;
+    }
+    .can-mock {
+      width: 100px;
+      height: 120px;
+      margin: 0 auto 12px;
+      background: linear-gradient(90deg, #c4c4c4, #e8e8e8 40%, #b0b0b0);
+      border-radius: 8px 8px 4px 4px;
+      border: 2px solid #999;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-main);
+      position: relative;
+    }
+    .can-mock::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 10%;
+      right: 10%;
+      height: 10px;
+      background: #ddd;
+      border-radius: 4px 4px 0 0;
+      border: 2px solid #999;
+      border-bottom: none;
+    }
+    .btn-outline {
+      background: var(--white-soft);
+      color: var(--pink-deep);
+      border: 2px solid var(--pink-deep);
+      box-shadow: none;
+      margin-top: 8px;
+    }
+    footer.site-footer {
+      text-align: center;
+      padding: 24px 16px 40px;
+      font-size: 12px;
+      color: var(--text-muted);
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .palette-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    @media (min-width: 640px) {
+      main { padding: 24px; gap: 28px; }
+      .hero-grid {
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .hero-copy { flex: 1; }
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+      .notes { display: grid; grid-template-columns: 1fr 1fr; }
+      .section { padding: 28px 24px; }
+      .section h2 { font-size: 1.35rem; }
+    }
+    @media (min-width: 900px) {
+      :root { --max: 880px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <strong>WIREFRAME PREVIEW</strong> — 結構示意 · 無正式插畫 · Inspired-by LuLu · 非官方
+  </div>
+
+  <header class="nav">
+    <div class="nav-brand">
+      <div class="nav-icon" title="Mascot icon placeholder">Lu</div>
+      <span>For [名字]</span>
+    </div>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#hero">首頁</a>
+      <a href="#countdown">倒數</a>
+      <a href="#gallery">相簿</a>
+      <a href="#notes">情話</a>
+      <a href="#surprise">驚喜</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section" id="hero">
+      <span class="label">A · Hero</span>
+      <p class="hint">Mobile：mascot 上、文案下 · Desktop：左文右圖</p>
+      <div class="hero-grid">
+        <div class="mascot-box" aria-label="Mascot placeholder">
+          <span>LuLu-inspired</span>
+          <span style="font-size:11px;font-weight:500;opacity:.8">pear · fused head</span>
+          <div class="blush-dots"><span></span><span></span></div>
+          <div class="snout" title="yellow snout"></div>
+          <span style="font-size:11px;margin-top:8px">原創 mascot 位</span>
+        </div>
+        <div class="hero-copy">
+          <h1>生日快樂呀，[女朋友名]</h1>
+          <p>一個為你整嘅小小 LuLu 世界<br />A little LuLu-inspired world, just for you</p>
+          <span class="btn">睇倒數</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="countdown">
+      <span class="label">B · Countdown</span>
+      <h2>距離 [名字] 嘅生日仲有…</h2>
+      <p class="hint">需要準確生日日期（時區預設 UTC+8）</p>
+      <div class="countdown-row">
+        <div class="count-cell"><div class="num">––</div><div class="unit">天 Days</div></div>
+        <div class="count-cell"><div class="num">––</div><div class="unit">時 Hrs</div></div>
+        <div class="count-cell"><div class="num">––</div><div class="unit">分 Min</div></div>
+        <div class="count-cell"><div class="num">––</div><div class="unit">秒 Sec</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="gallery">
+      <span class="label">C · Gallery</span>
+      <h2>我哋嘅小碎片</h2>
+      <p class="hint">Mobile 2 欄 · Desktop 3 欄 · 待用戶相片</p>
+      <div class="gallery-grid">
+        <div class="photo-slot">Photo 1</div>
+        <div class="photo-slot">Photo 2</div>
+        <div class="photo-slot">Photo 3</div>
+        <div class="photo-slot doodle">Doodle<br />optional</div>
+        <div class="photo-slot">Photo 4</div>
+        <div class="photo-slot">Photo 5</div>
+      </div>
+    </section>
+
+    <section class="section alt" id="notes">
+      <span class="label">D · Love Notes</span>
+      <h2>寫俾你嘅小字條</h2>
+      <p class="hint">便利貼卡 · 待真實情話 3–8 則</p>
+      <div class="notes">
+        <div class="note-card">
+          多謝你成為我嘅 […]
+          <div class="meta">Note 1 · placeholder</div>
+        </div>
+        <div class="note-card">
+          記得嗰日我哋…
+          <div class="meta">Note 2 · placeholder</div>
+        </div>
+        <div class="note-card">
+          I love you because…
+          <div class="meta">Note 3 · placeholder</div>
+        </div>
+        <div class="note-card">
+          （再加你想講嘅說話）
+          <div class="meta">Note 4 · placeholder</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="surprise">
+      <span class="label">E · Surprise</span>
+      <h2>打開呢個罐頭…</h2>
+      <p class="hint">互動示意：揭蓋 → hidden message（內容待填）</p>
+      <div class="surprise-box">
+        <div class="can-mock">CAN</div>
+        <p style="font-size:14px;color:var(--text-muted);margin-bottom:4px;">A surprise for you</p>
+        <span class="btn btn-outline">打開罐頭</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Made with love for [名字] · Inspired by LuLu the Piggy · 非官方粉絲向私人網站</p>
+    <p style="margin-top:8px;">Palette preview</p>
+    <div class="palette-strip" aria-label="Color palette">
+      <div class="swatch" style="background:#F7A8B8" title="#F7A8B8"></div>
+      <div class="swatch" style="background:#E88B9A" title="#E88B9A"></div>
+      <div class="swatch" style="background:#F5C6A8" title="#F5C6A8"></div>
+      <div class="swatch" style="background:#F4B4C0" title="#F4B4C0"></div>
+      <div class="swatch" style="background:#F5D76E" title="#F5D76E"></div>
+      <div class="swatch" style="background:#FFF8F5;border-color:#ccc" title="#FFF8F5"></div>
+      <div class="swatch" style="background:#5C4033" title="#5C4033"></div>
+      <div class="swatch" style="background:#C8E6D4" title="#C8E6D4"></div>
+    </div>
+  </footer>
+</body>
+</html>

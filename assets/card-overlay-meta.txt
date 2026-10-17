@@ -1,0 +1,2 @@
+cropped=433x655
+HTML card suggest: top=42% height=48% width=56% (half-body, below face)

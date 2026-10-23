@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Happy Birthday Vanessa — a private LuLu-inspired birthday site" />
+  <title>♡ For Vanessa · Happy Birthday</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=bdayunlock4" />
+  <style id="draft-gate">
+    /* Inline so hide works even if CSS cache is stale */
+    body:not(.is-birthday-day) .draft-until-birthday { display: none !important; }
+  </style>
+</head>
+<body class="landing">
+  <nav class="site-nav" aria-label="主選單">
+    <a class="nav-brand" href="#top">
+      <img src="assets/lulu-mascot.png?v=bdayunlock4" alt="" width="36" height="36" />
+      <span>♡ For Vanessa</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#countdown">倒數</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero-scene" id="top" aria-label="首頁動畫場景">
+    <div class="sky" aria-hidden="true"></div>
+    <div class="sun" aria-hidden="true"></div>
+    <div class="cloud cloud-a" aria-hidden="true"></div>
+    <div class="cloud cloud-b" aria-hidden="true"></div>
+    <div class="cloud cloud-c" aria-hidden="true"></div>
+
+    <canvas id="pixel-fireworks" class="pixel-fireworks" aria-hidden="true"></canvas>
+
+    <!-- Q-style city skyline (scaled up) -->
+    <div class="city" aria-hidden="true">
+      <svg viewBox="0 0 800 220" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="190" width="800" height="30" fill="#E8D4C4"/>
+        <rect x="0" y="198" width="800" height="22" fill="#D9C4B0"/>
+        <g fill="#F5C6A8" stroke="#5C4033" stroke-width="1.5" stroke-linejoin="round">
+          <rect x="20" y="110" width="48" height="80" rx="2"/>
+          <rect x="78" y="90" width="56" height="100" rx="2"/>
+          <rect x="145" y="120" width="40" height="70" rx="2"/>
+          <rect x="200" y="75" width="62" height="115" rx="2"/>
+          <rect x="275" y="100" width="50" height="90" rx="2"/>
+          <rect x="340" y="85" width="70" height="105" rx="2"/>
+          <rect x="420" y="115" width="44" height="75" rx="2"/>
+          <rect x="475" y="70" width="58" height="120" rx="2"/>
+          <rect x="545" y="95" width="52" height="95" rx="2"/>
+          <rect x="608" y="80" width="66" height="110" rx="2"/>
+          <rect x="685" y="105" width="50" height="85" rx="2"/>
+          <rect x="745" y="88" width="40" height="102" rx="2"/>
+        </g>
+        <g fill="#F7A8B8" stroke="#5C4033" stroke-width="1.5">
+          <polygon points="20,110 44,88 68,110"/>
+          <rect x="200" y="55" width="20" height="20" rx="1"/>
+          <rect x="340" y="65" width="24" height="20" rx="1"/>
+          <polygon points="475,70 504,48 533,70"/>
+          <rect x="608" y="58" width="18" height="22" rx="1"/>
+        </g>
+        <g fill="#FFEFE8" stroke="#5C4033" stroke-width="1.8" stroke-linejoin="round">
+          <rect x="40" y="130" width="70" height="60" rx="3"/>
+          <rect x="130" y="115" width="55" height="75" rx="3"/>
+          <rect x="250" y="125" width="80" height="65" rx="3"/>
+          <rect x="370" y="108" width="60" height="82" rx="3"/>
+          <rect x="500" y="120" width="75" height="70" rx="3"/>
+          <rect x="620" y="112" width="90" height="78" rx="3"/>
+        </g>
+        <g fill="#F5D76E" opacity="0.85">
+          <rect x="52" y="142" width="10" height="12" rx="1"/><rect x="70" y="142" width="10" height="12" rx="1"/>
+          <rect x="52" y="160" width="10" height="12" rx="1"/><rect x="70" y="160" width="10" height="12" rx="1"/>
+          <rect x="142" y="128" width="10" height="12" rx="1"/><rect x="158" y="128" width="10" height="12" rx="1"/>
+          <rect x="142" y="148" width="10" height="12" rx="1"/><rect x="158" y="148" width="10" height="12" rx="1"/>
+          <rect x="265" y="138" width="12" height="12" rx="1"/><rect x="285" y="138" width="12" height="12" rx="1"/><rect x="305" y="138" width="12" height="12" rx="1"/>
+          <rect x="265" y="158" width="12" height="12" rx="1"/><rect x="285" y="158" width="12" height="12" rx="1"/>
+          <rect x="385" y="122" width="10" height="12" rx="1"/><rect x="402" y="122" width="10" height="12" rx="1"/>
+          <rect x="385" y="142" width="10" height="12" rx="1"/><rect x="402" y="142" width="10" height="12" rx="1"/>
+          <rect x="515" y="134" width="12" height="12" rx="1"/><rect x="535" y="134" width="12" height="12" rx="1"/><rect x="555" y="134" width="12" height="12" rx="1"/>
+          <rect x="515" y="154" width="12" height="12" rx="1"/><rect x="535" y="154" width="12" height="12" rx="1"/>
+          <rect x="640" y="126" width="12" height="12" rx="1"/><rect x="660" y="126" width="12" height="12" rx="1"/><rect x="680" y="126" width="12" height="12" rx="1"/>
+          <rect x="640" y="148" width="12" height="12" rx="1"/><rect x="660" y="148" width="12" height="12" rx="1"/>
+        </g>
+        <g fill="#C8E6D4" stroke="#5C4033" stroke-width="1">
+          <circle cx="105" cy="185" r="10"/><rect x="102" y="185" width="6" height="12" fill="#8B6F63" stroke="none"/>
+          <circle cx="230" cy="186" r="9"/><rect x="227" y="186" width="6" height="12" fill="#8B6F63" stroke="none"/>
+          <circle cx="460" cy="185" r="11"/><rect x="457" y="185" width="6" height="12" fill="#8B6F63" stroke="none"/>
+          <circle cx="590" cy="186" r="8"/><rect x="587" y="186" width="5" height="12" fill="#8B6F63" stroke="none"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="hero-copy">
+      <h1 class="draft-until-birthday">Happy Birthday<br />Vanessa ♡</h1>
+      <p class="sub">一個為你整嘅小小 LuLu 世界</p>
+    </div>
+
+    <!-- Pop-up mascot: full-body bounce from bottom, card below face -->
+    <div id="lulu-flyer" class="flyer-wrap" role="img" aria-label="LuLu 全身由下彈出，手持生日倒數紙牌">
+      <div class="flyer">
+        <img class="flyer-mascot flyer-back" src="assets/lulu-fly-back.png?v=bdayunlock4" alt="" width="479" height="593" draggable="false" hidden />
+        <img class="flyer-mascot flyer-front flyer-fullbody" src="assets/lulu-fullbody.png?v=bdayunlock4" alt="原創 LuLu 風全身吉祥物（派對帽）" width="433" height="655" draggable="false" />
+        <a class="birthday-sign" id="birthday-sign" href="inside.html?v=bdayunlock4" aria-label="離 Vanessa 生日倒數，點擊進入下一頁">
+          <div class="sign-label">離 Vanessa 生日</div>
+          <div class="sign-countdown" aria-live="polite">
+            <div class="sign-unit"><span class="num" data-cd="days">–</span><span class="lbl">天</span></div>
+            <div class="sign-unit"><span class="num" data-cd="hours">–</span><span class="lbl">時</span></div>
+            <div class="sign-unit"><span class="num" data-cd="mins">–</span><span class="lbl">分</span></div>
+            <div class="sign-unit"><span class="num" data-cd="secs">–</span><span class="lbl">秒</span></div>
+          </div>
+          <div class="sign-done">今日就係！🎂</div>
+          <div class="sign-click-hint">點擊進入 →</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="scene-controls">
+      <button type="button" class="btn-replay" id="btn-replay" title="重播彈出">↻ 再彈一次</button>
+    </div>
+  </header>
+
+  
+  <!-- Homepage stays hero-only. Draft gallery/notes/surprise live on inside.html,
+       gated until 2026-11-11 00:00 HKT (body.is-birthday-day). Preview: ?unlock=1
+       Full backup: backups/index-full-before-hide-2026-10-17.html -->
+
+
+  <script src="js/main.js?v=bdayunlock4"></script>
+  <script src="js/fireworks.js?v=bdayunlock4"></script>
+</body>
+</html>

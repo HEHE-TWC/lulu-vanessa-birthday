@@ -1,0 +1,217 @@
+/* Edit mode — only used when body.is-edit-mode (?edit=1). Normal visits unaffected. */
+
+.edit-mode-panel {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  z-index: 9999;
+  width: min(300px, calc(100vw - 24px));
+  max-height: min(70vh, 520px);
+  overflow: auto;
+  padding: 14px 14px 12px;
+  border-radius: 14px;
+  background: rgba(255, 252, 248, 0.96);
+  border: 2px solid #5c4033;
+  box-shadow: 0 10px 28px rgba(92, 64, 51, 0.22);
+  font-family: "Noto Sans TC", "Nunito", system-ui, sans-serif;
+  color: #5c4033;
+  pointer-events: auto;
+}
+
+.edit-mode-panel__title {
+  font-weight: 800;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.edit-mode-panel__hint {
+  margin: 0 0 10px;
+  font-size: 12px;
+  line-height: 1.45;
+  opacity: 0.9;
+}
+
+.edit-mode-btn {
+  display: block;
+  width: 100%;
+  margin: 0 0 8px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 2px solid #5c4033;
+  background: #ffe8d6;
+  color: #5c4033;
+  font: inherit;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.edit-mode-btn:hover,
+.edit-mode-btn:focus-visible {
+  background: #ffd4b8;
+}
+
+.edit-mode-btn--file {
+  background: #c8e6d4;
+}
+
+.edit-mode-btn--file:hover {
+  background: #b3dbc4;
+}
+
+.edit-mode-btn--danger {
+  background: #f7c8c8;
+}
+
+.edit-mode-btn--danger:hover {
+  background: #f0a8a8;
+}
+
+.edit-mode-help {
+  margin: 4px 0 10px;
+  font-size: 12px;
+}
+
+.edit-mode-help summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.edit-mode-help ol {
+  margin: 6px 0 0;
+  padding-left: 1.2em;
+  line-height: 1.5;
+}
+
+.edit-mode-help code {
+  font-size: 11px;
+  background: #fff0e6;
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+
+.edit-mode-json {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 0 6px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #c4a484;
+  background: #fffaf5;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.35;
+  resize: vertical;
+  color: #5c4033;
+}
+
+.edit-mode-status {
+  margin: 0;
+  min-height: 1.2em;
+  font-size: 11px;
+  color: #8b5e4b;
+}
+
+/* Overlay layer inside .hero-scene — above scene art, does not replace mascot/card */
+.edit-overlay-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 35;
+  pointer-events: none;
+}
+
+.edit-overlay {
+  position: absolute;
+  left: 10%;
+  top: 20%;
+  width: 25%;
+  z-index: 40;
+  pointer-events: auto;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  box-sizing: border-box;
+  border: 2px dashed transparent;
+  border-radius: 6px;
+}
+
+.edit-overlay.is-active,
+.edit-overlay:hover {
+  border-color: #5c4033;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.edit-overlay.is-active {
+  cursor: grabbing;
+  box-shadow: 0 0 0 2px #f7a8b8;
+}
+
+.edit-overlay img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+.edit-overlay__label {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  max-width: calc(100% - 28px);
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(92, 64, 51, 0.85);
+  color: #fffaf5;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.edit-overlay__handle {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: #f7a8b8;
+  border: 2px solid #5c4033;
+  cursor: nwse-resize;
+  box-sizing: border-box;
+}
+
+.edit-overlay__del {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 2px solid #5c4033;
+  border-radius: 50%;
+  background: #fff;
+  color: #5c4033;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.edit-overlay__del:hover {
+  background: #f7c8c8;
+}
+
+@media (max-width: 520px) {
+  .edit-mode-panel {
+    right: 8px;
+    left: 8px;
+    bottom: 8px;
+    width: auto;
+  }
+}

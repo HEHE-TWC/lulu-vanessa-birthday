@@ -215,3 +215,12 @@
     width: auto;
   }
 }
+
+/* Survive body.landing sibling-hide rule */
+body.landing.is-edit-mode .edit-mode-panel,
+body.is-edit-mode .edit-mode-panel {
+  display: block !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  z-index: 10000;
+}

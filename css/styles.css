@@ -61,10 +61,16 @@ body.landing .hero-scene {
   min-height: calc(100svh - var(--nav-h));
   max-height: calc(100dvh - var(--nav-h));
 }
-body.landing .hero-scene ~ *:not(.scene-controls) {
+body.landing .hero-scene ~ *:not(.scene-controls):not(.edit-mode-panel) {
   display: none !important;
   visibility: hidden !important;
   pointer-events: none !important;
+}
+/* Edit mode panel must stay visible on landing */
+body.landing.is-edit-mode .edit-mode-panel {
+  display: block !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 }
 /* Extra safety: sections after hero never paint on landing */
 body.landing > section,

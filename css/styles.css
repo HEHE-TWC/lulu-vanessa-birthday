@@ -801,9 +801,27 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 /* —— Inside page shell —— */
 .page-inside { min-height: 100vh; }
 .inside-shell {
+  position: relative;
   max-width: 800px;
   margin: 0 auto;
   padding: 40px 20px 60px;
+}
+
+/* Permanent stickers locked from edit-mode coords (always visible) */
+.locked-overlays {
+  position: absolute;
+  inset: 0;
+  z-index: 35;
+  pointer-events: none;
+}
+.locked-overlay {
+  position: absolute;
+  display: block;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  box-sizing: border-box;
 }
 .inside-hero {
   text-align: center;

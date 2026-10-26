@@ -9,9 +9,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;800&family=Nunito:wght@600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=bdayunlock4" />
+  <link rel="stylesheet" href="css/styles.css?v=editmode3" />
+  <link rel="stylesheet" href="css/edit-mode.css?v=editmode3" />
   <!-- Draft sections (gallery/notes/surprise) stay hidden until 2026-11-11 00:00 HKT
        (body.is-birthday-day). Preview override: ?unlock=1 or ?birthday=1
+       Edit mode: ?edit=1 also unlocks drafts on this page for layout work.
        Full backup: backups/inside-full-before-hide-2026-10-17.html -->
   <style id="draft-gate">
     /* Inline so hide works even if CSS cache is stale */
@@ -20,12 +22,12 @@
 </head>
 <body class="page-inside">
   <nav class="site-nav" aria-label="主選單">
-    <a class="nav-brand" href="index.html?v=bdayunlock4">
-      <img src="assets/lulu-mascot.png?v=bdayunlock4" alt="" width="36" height="36" />
+    <a class="nav-brand" href="index.html?v=editmode3">
+      <img src="assets/lulu-mascot.png?v=editmode3" alt="" width="36" height="36" />
       <span>♡ For Vanessa</span>
     </a>
     <ul class="nav-links">
-      <li><a href="index.html?v=bdayunlock4">← 返回首頁</a></li>
+      <li><a href="index.html?v=editmode3">← 返回首頁</a></li>
       <li class="draft-until-birthday"><a href="#gallery">相簿</a></li>
       <li class="draft-until-birthday"><a href="#notes">情話</a></li>
       <li class="draft-until-birthday"><a href="#surprise">驚喜</a></li>
@@ -35,7 +37,7 @@
   <main class="inside-shell">
     <!-- Pixel countdown: target 2026-11-11 00:00 Asia/Hong_Kong -->
     <section class="pixel-cd-hero" id="pixel-cd-hero" aria-live="polite">
-      <h2 class="pixel-title" id="pixel-title"><img class="pixel-title-img" src="assets/title-daoshuzhong.png?v=bdayunlock4" alt="倒數中" width="280" height="104" /></h2>
+      <h2 class="pixel-title" id="pixel-title"><img class="pixel-title-img" src="assets/title-daoshuzhong.png?v=editmode3" alt="倒數中" width="280" height="104" /></h2>
       <p class="pixel-kicker">離 VANESSA 生日 仲有</p>
       <div class="pixel-countdown" id="pixel-countdown">
         <div class="pixel-cd-unit"><div class="num" data-cd="days">–</div><div class="lbl">DAYS</div></div>
@@ -47,7 +49,7 @@
       <p class="pixel-cd-sub" id="pixel-cd-sub">2026.11.11 00:00 · UTC+8</p>
     </section>
 
-    <!-- Draft / placeholder sections — hidden until birthday (or ?unlock=1) -->
+    <!-- Draft / placeholder sections — hidden until birthday (or ?unlock=1 / ?edit=1) -->
     <section class="section draft-until-birthday" id="gallery" style="padding-left:0;padding-right:0;max-width:none">
       <h2>我哋嘅小碎片</h2>
       <p class="lead">相簿稍後加入（6–12 張）</p>
@@ -82,7 +84,7 @@
     </section>
 
     <p class="inside-back">
-      <a class="cta-hint" href="index.html?v=bdayunlock4">← 返去睇 LuLu 飛</a>
+      <a class="cta-hint" href="index.html?v=editmode3">← 返去睇 LuLu 飛</a>
     </p>
   </main>
 
@@ -90,6 +92,11 @@
     <p>Made with <span class="heart">♡</span> for Vanessa · Inspired by LuLu the Piggy · 非官方粉絲向私人網站</p>
   </footer>
 
-  <script src="js/main.js?v=bdayunlock4"></script>
+  <!-- Edit mode (temporary): open with ?edit=1
+       Local: inside.html?edit=1
+       Live:  inside.html?v=editmode3&edit=1
+       Without edit=1 the script no-ops; uploads/drags stay in localStorage only. -->
+  <script src="js/main.js?v=editmode3"></script>
+  <script src="js/edit-mode.js?v=editmode3"></script>
 </body>
 </html>

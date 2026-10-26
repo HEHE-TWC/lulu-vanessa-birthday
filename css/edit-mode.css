@@ -224,3 +224,14 @@ body.is-edit-mode .edit-mode-panel {
   pointer-events: auto !important;
   z-index: 10000;
 }
+
+
+/* Inside page: host needs positioning for absolute overlay layer */
+body.page-inside.is-edit-mode .inside-shell {
+  position: relative;
+}
+
+/* Keep draft sections visible while editing even if birthday class flickers */
+body.page-inside.is-edit-mode .draft-until-birthday {
+  display: revert !important;
+}

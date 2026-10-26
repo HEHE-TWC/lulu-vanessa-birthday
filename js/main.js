@@ -13,11 +13,15 @@
   const BIRTHDAY_TARGET_MS = Date.UTC(2026, 10, 10, 16, 0, 0);
 
   const _params = new URLSearchParams(location.search);
+  /* ?edit=1 on inside page also unlocks drafts so edit overlays can target them */
   const FORCE_BIRTHDAY =
     _params.has("unlock") ||
     _params.has("birthday") ||
     _params.get("unlock") === "1" ||
-    _params.get("birthday") === "1";
+    _params.get("birthday") === "1" ||
+    (_params.get("edit") === "1" &&
+      (document.body.classList.contains("page-inside") ||
+        /inside\.html/i.test(location.pathname)));
 
   function pad(n) {
     return String(n).padStart(2, "0");

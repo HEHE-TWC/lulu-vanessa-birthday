@@ -1,12 +1,16 @@
 /**
- * Temporary edit mode — upload & drag image overlays on the homepage.
+ * Temporary edit mode — upload & drag image overlays on homepage OR inside page.
  *
  * How to use:
- *   Local:  open index.html?edit=1
- *   Live:   https://hehe-twc.github.io/lulu-vanessa-birthday/?v=editmode1&edit=1
+ *   Home local:   index.html?edit=1
+ *   Home live:    https://hehe-twc.github.io/lulu-vanessa-birthday/?v=editmode3&edit=1
+ *   Inside local: inside.html?edit=1
+ *   Inside live:  .../inside.html?v=editmode3&edit=1
+ *   (Inside also auto-unlocks draft sections while editing; ?unlock=1 still works alone.)
  *
  * Without ?edit=1 this script does nothing (no UI, no listeners).
  * Overlays are draft-only (localStorage). Copy JSON → lock into CSS later.
+ * Storage keys are per-page so home/inside drafts do not clash.
  */
 (function () {
   "use strict";
@@ -14,16 +18,37 @@
   var params = new URLSearchParams(location.search);
   if (params.get("edit") !== "1") return;
 
-  var STORAGE_KEY = "lulu-edit-overlays-v1";
-  var hero = document.querySelector(".hero-scene");
-  if (!hero) return;
+  var isInside =
+    document.body.classList.contains("page-inside") ||
+    /inside\.html/i.test(location.pathname);
+
+  var STORAGE_KEY = isInside
+    ? "lulu-edit-overlays-inside-v1"
+    : "lulu-edit-overlays-v1";
+
+  var host = document.querySelector(".hero-scene");
+  if (!host && isInside) {
+    host = document.querySelector(".inside-shell");
+  }
+  if (!host) return;
+
+  /* Ensure absolute overlay layer can cover the host */
+  var hostPos = window.getComputedStyle(host).position;
+  if (hostPos === "static") {
+    host.style.position = "relative";
+  }
 
   document.body.classList.add("is-edit-mode");
+
+  /* On inside page, show draft sections while editing (main.js also treats edit=1 as unlock). */
+  if (isInside) {
+    document.body.classList.add("is-birthday-day");
+  }
 
   var overlays = [];
   var layer = document.createElement("div");
   layer.className = "edit-overlay-layer";
-  hero.appendChild(layer);
+  host.appendChild(layer);
 
   /* —— Panel UI —— */
   var panel = document.createElement("aside");
@@ -31,8 +56,12 @@
   panel.setAttribute("role", "region");
   panel.setAttribute("aria-label", "編輯模式");
   panel.innerHTML =
-    '<div class="edit-mode-panel__title">✏ 編輯模式</div>' +
-    '<p class="edit-mode-panel__hint">上載圖片後拖去想要位置；可拉右下角改大細。座標會存本機，重整唔會冇。</p>' +
+    '<div class="edit-mode-panel__title">✏ 編輯模式' +
+    (isInside ? "（內頁）" : "（首頁）") +
+    "</div>" +
+    '<p class="edit-mode-panel__hint">上載圖片後拖去想要位置；可拉右下角改大細。座標會存本機，重整唔會冇。' +
+    (isInside ? "內頁草稿區已自動解鎖方便執。" : "") +
+    "</p>" +
     '<label class="edit-mode-btn edit-mode-btn--file">' +
     "  上載圖片" +
     '  <input type="file" id="edit-upload" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden />' +
@@ -44,6 +73,7 @@
     "<li>拖好之後撳「鎖定／複製座標」。</li>" +
     "<li>將 JSON 貼俾我（或自己寫入 CSS）。</li>" +
     "<li>關掉網址嘅 <code>?edit=1</code> 就返正常站。</li>" +
+    "<li>首頁：<code>index.html?edit=1</code> · 內頁：<code>inside.html?edit=1</code></li>" +
     "<li>編輯模式唔會改到吉祥物／倒數卡紙鎖定位置。</li>" +
     "</ol></details>" +
     '<textarea class="edit-mode-json" id="edit-json" readonly rows="6" placeholder="座標 JSON 會出現喺呢度…"></textarea>' +
@@ -61,8 +91,8 @@
     return "ov-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 7);
   }
 
-  function heroRect() {
-    return hero.getBoundingClientRect();
+  function hostRect() {
+    return host.getBoundingClientRect();
   }
 
   function clamp(n, min, max) {
@@ -157,7 +187,7 @@
 
     el.addEventListener("pointermove", function (ev) {
       if (!dragging && !resizing) return;
-      var rect = heroRect();
+      var rect = hostRect();
       var dx = ev.clientX - startX;
       var dy = ev.clientY - startY;
       if (dragging) {

@@ -140,6 +140,102 @@
     }
   }
 
+
+  /* Gallery captions: editable + localStorage (per-browser) */
+  (function initGalleryCaptions() {
+    const STORAGE_KEY = "lulu-gallery-captions-v1";
+    const boxes = document.querySelectorAll(".gallery-text[data-caption-key]");
+    if (!boxes.length) return;
+
+    function loadMap() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return {};
+        const parsed = JSON.parse(raw);
+        return parsed && typeof parsed === "object" ? parsed : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveMap(map) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(map));
+      } catch (e) {
+        /* quota / private mode — ignore */
+      }
+    }
+
+    function normalizeText(el) {
+      let t = (el.innerText || "").replace(/\u00a0/g, " ");
+      /* browsers often leave a trailing newline in contenteditable */
+      t = t.replace(/\n$/, "");
+      if (!t.trim()) return "";
+      return t;
+    }
+
+    function setEmptyState(el, empty) {
+      if (empty) {
+        el.textContent = "";
+        el.classList.add("is-empty");
+      } else {
+        el.classList.remove("is-empty");
+      }
+    }
+
+    const map = loadMap();
+
+    boxes.forEach((el) => {
+      const key = el.getAttribute("data-caption-key");
+      const saved = map[key];
+      if (typeof saved === "string" && saved.trim()) {
+        el.textContent = saved;
+        setEmptyState(el, false);
+      } else {
+        setEmptyState(el, true);
+      }
+
+      const persist = () => {
+        const text = normalizeText(el);
+        if (!text) {
+          setEmptyState(el, true);
+          map[key] = "";
+        } else {
+          /* keep plain text only */
+          if (el.innerHTML !== text && el.childElementCount > 0) {
+            el.textContent = text;
+          }
+          setEmptyState(el, false);
+          map[key] = text;
+        }
+        saveMap(map);
+      };
+
+      el.addEventListener("input", persist);
+      el.addEventListener("blur", persist);
+
+      el.addEventListener("paste", (e) => {
+        e.preventDefault();
+        const plain = (e.clipboardData || window.clipboardData).getData("text/plain");
+        if (document.queryCommandSupported && document.queryCommandSupported("insertText")) {
+          document.execCommand("insertText", false, plain);
+        } else {
+          const sel = window.getSelection();
+          if (!sel.rangeCount) return;
+          sel.deleteFromDocument();
+          sel.getRangeAt(0).insertNode(document.createTextNode(plain));
+          sel.collapseToEnd();
+        }
+        persist();
+      });
+
+      el.addEventListener("keydown", (e) => {
+        /* Escape blurs so mobile users can dismiss keyboard easily */
+        if (e.key === "Escape") el.blur();
+      });
+    });
+  })();
+
   window.__luluBirthday = {
     startFlight,
     birthdayTargetMs: () => BIRTHDAY_TARGET_MS,

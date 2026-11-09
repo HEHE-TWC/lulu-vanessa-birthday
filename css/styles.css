@@ -798,6 +798,51 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   display: flex;
   align-items: center;
   box-shadow: 0 6px 16px rgba(245, 198, 168, 0.22);
+  /* editable captions */
+  cursor: text;
+  outline: none;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  -webkit-user-select: text;
+  user-select: text;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.gallery-text:focus {
+  border-color: #f0a8b8;
+  box-shadow: 0 6px 18px rgba(255, 154, 180, 0.28);
+}
+.gallery-text.is-empty::before {
+  content: attr(data-placeholder);
+  color: rgba(120, 90, 100, 0.55);
+  font-style: italic;
+  pointer-events: none;
+  flex: 1 1 auto;
+}
+.gallery-text.is-empty:not(:focus)::after {
+  content: "點擊編輯";
+  margin-left: 8px;
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(120, 90, 100, 0.4);
+  pointer-events: none;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+.gallery-text.is-empty:focus::before {
+  opacity: 0.45;
+}
+@media (max-width: 639px) {
+  .gallery-text {
+    min-height: 88px;
+    font-size: 0.92rem;
+    padding: 16px 16px;
+  }
+  .gallery-text.is-empty:not(:focus)::after {
+    display: none; /* keep mobile clean; placeholder alone is enough */
+  }
 }
 @media (max-width: 639px) {
   .gallery-row,

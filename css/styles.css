@@ -791,9 +791,10 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   border-radius: 16px;
   padding: 18px 20px;
   color: var(--text-muted);
-  font-style: italic;
-  font-size: 0.95rem;
-  line-height: 1.7;
+  font-family: "Zhi Mang Xing", "Ma Shan Zheng", "Noto Sans TC", cursive, sans-serif;
+  font-style: normal; /* handwritten fonts read better upright */
+  font-size: 1.08rem; /* slight bump — girl-hand glyphs look small */
+  line-height: 1.75;
   min-height: 96px;
   display: flex;
   align-items: center;
@@ -837,7 +838,7 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 @media (max-width: 639px) {
   .gallery-text {
     min-height: 88px;
-    font-size: 0.92rem;
+    font-size: 1.02rem;
     padding: 16px 16px;
   }
   .gallery-text.is-empty:not(:focus)::after {

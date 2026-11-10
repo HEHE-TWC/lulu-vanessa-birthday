@@ -35,6 +35,21 @@
 
 html { scroll-behavior: smooth; }
 
+@font-face {
+  font-family: "辰宇落雁體 Thin";
+  src: url("../assets/fonts/ChenYuluoyan-2.0-Thin.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ChenYuluoyan";
+  src: url("../assets/fonts/ChenYuluoyan-2.0-Thin.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   font-family: "Nunito", "Noto Sans TC", system-ui, sans-serif;
   color: var(--text-main);
@@ -791,9 +806,10 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   border-radius: 16px;
   padding: 18px 20px;
   color: var(--text-muted);
-  font-family: "Zhi Mang Xing", "Ma Shan Zheng", "Noto Sans TC", cursive, sans-serif;
-  font-style: normal; /* handwritten fonts read better upright */
-  font-size: 1.08rem; /* slight bump — girl-hand glyphs look small */
+  font-family: "辰宇落雁體 Thin", "ChenYuluoyan", "Noto Sans TC", cursive, sans-serif;
+  font-style: normal;
+  font-synthesis: none;
+  font-size: 1.2rem; /* thin hand looks small — slight bump */
   line-height: 1.75;
   min-height: 96px;
   display: flex;
@@ -816,7 +832,8 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 .gallery-text.is-empty::before {
   content: attr(data-placeholder);
   color: rgba(120, 90, 100, 0.55);
-  font-style: italic;
+  font-style: normal; /* no italic faux with 落雁體 */
+  font-synthesis: none;
   pointer-events: none;
   flex: 1 1 auto;
 }
@@ -838,7 +855,7 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 @media (max-width: 639px) {
   .gallery-text {
     min-height: 88px;
-    font-size: 1.02rem;
+    font-size: 1.15rem;
     padding: 16px 16px;
   }
   .gallery-text.is-empty:not(:focus)::after {
@@ -900,7 +917,7 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 .site-footer .heart { color: var(--pink-deep); }
 
 /* —— Inside page shell —— */
-.page-inside { min-height: 100vh; }
+.page-inside { min-height: 100vh; overflow-x: hidden; }
 .inside-shell {
   position: relative;
   max-width: 800px;
@@ -923,6 +940,15 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   pointer-events: none;
   -webkit-user-drag: none;
   box-sizing: border-box;
+}
+/* Nick+Judy hug: desktop may peek past the 800px shell into page margin.
+   On mobile the shell is full-bleed, so pull it fully inside (not merely clip). */
+@media (max-width: 768px) {
+  .overlay-nick-judy {
+    left: 1.5% !important;
+    width: 14% !important;
+    /* top stays 45.8% from inline style */
+  }
 }
 .inside-hero {
   text-align: center;

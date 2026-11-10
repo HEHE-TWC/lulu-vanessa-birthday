@@ -143,7 +143,7 @@
 
   /* Gallery captions: editable + localStorage (per-browser) */
   (function initGalleryCaptions() {
-    const STORAGE_KEY = "lulu-gallery-captions-v1";
+    const STORAGE_KEY = "lulu-gallery-captions-v2";
     const boxes = document.querySelectorAll(".gallery-text[data-caption-key]");
     if (!boxes.length) return;
 
@@ -192,7 +192,13 @@
         el.textContent = saved;
         setEmptyState(el, false);
       } else {
-        setEmptyState(el, true);
+        /* Baked HTML is the default. Empty or missing localStorage must not wipe it. */
+        const baked = normalizeText(el);
+        if (baked) {
+          el.classList.remove("is-empty");
+        } else {
+          setEmptyState(el, true);
+        }
       }
 
       const persist = () => {

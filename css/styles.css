@@ -877,12 +877,13 @@ button, .btn-replay, .cta-hint, .birthday-sign {
   }
 }
 .surprise-box {
-  max-width: 360px;
+  max-width: 35rem; /* ~560px */
+  width: calc(100% - 32px);
   margin: 0 auto;
   background: var(--white-soft);
   border: 3px solid var(--peach);
   border-radius: 20px;
-  padding: 28px 20px;
+  padding: 32px 28px;
   text-align: center;
 }
 .surprise-box button {
@@ -899,12 +900,46 @@ button, .btn-replay, .cta-hint, .birthday-sign {
 .surprise-box button:hover { background: var(--pink-deep); }
 .surprise-reveal {
   display: none;
-  margin-top: 16px;
-  font-weight: 700;
+  margin-top: 0;
+  text-align: left;
+  font-family: "辰宇落雁體 Thin", "ChenYuluoyan", "Noto Sans TC", cursive, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-synthesis: none;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-main);
+}
+.surprise-reveal p {
+  margin: 0 0 1em;
+}
+.surprise-reveal p:last-child {
+  margin-bottom: 0;
+}
+.surprise-reveal .surprise-close {
   color: var(--pink-deep);
 }
-.surprise-box.open .surprise-reveal { display: block; }
-.surprise-box.open .surprise-tease { display: none; }
+.surprise-box.open .surprise-reveal {
+  display: block;
+  animation: surprise-letter-in 0.45s ease;
+}
+.surprise-box.open .surprise-tease,
+.surprise-box.open #btn-surprise {
+  display: none;
+}
+@keyframes surprise-letter-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (max-width: 639px) {
+  .surprise-box {
+    width: calc(100% - 24px);
+    padding: 24px 18px;
+  }
+  .surprise-reveal {
+    font-size: 1.1rem;
+  }
+}
 
 .site-footer {
   padding: 28px 20px 40px;

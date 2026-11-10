@@ -143,7 +143,7 @@
 
   /* Gallery captions: editable + localStorage (per-browser) */
   (function initGalleryCaptions() {
-    const STORAGE_KEY = "lulu-gallery-captions-v2";
+    const STORAGE_KEY = "lulu-gallery-captions-v3";
     const boxes = document.querySelectorAll(".gallery-text[data-caption-key]");
     if (!boxes.length) return;
 
